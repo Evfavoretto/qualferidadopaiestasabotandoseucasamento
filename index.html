@@ -1,188 +1,1126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnóstico</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0a0d1f;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-}
-.container{
-  max-width:600px;
-  width:100%;
-  padding:20px;
-}
-.question{
-  font-size:22px;
-  margin-bottom:20px;
-}
-.option{
-  background:#141832;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-  cursor:pointer;
-}
-.btn{
-  background:#caa56c;
-  color:#000;
-  padding:15px;
-  border-radius:30px;
-  text-align:center;
-  cursor:pointer;
-  margin-top:20px;
-}
-</style>
+  <title>Diagnóstico Exclusivo | Qual ferida do pai está sabotando seu casamento?</title>
+  <meta name="description" content="Responda 7 perguntas e descubra o padrão invisível que você aprendeu na infância e que está afetando a forma como você ama hoje." />
+
+  <meta property="og:title" content="Diagnóstico Exclusivo" />
+  <meta property="og:description" content="Descubra qual ferida do pai está sabotando seu casamento." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/07091a/c9a06a?text=Diagn%C3%B3stico+Exclusivo" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Diagnóstico Exclusivo" />
+  <meta name="twitter:description" content="Descubra qual ferida do pai está sabotando seu casamento." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#050713;
+      --bg-2:#090b1d;
+      --card:#0b0d22;
+      --card-2:rgba(11,13,34,.88);
+      --gold:#d0ae7e;
+      --gold-2:#b89263;
+      --gold-3:#ecd4ae;
+      --text:#f5efe9;
+      --muted:#b8aa9d;
+      --muted-2:#8e8277;
+      --line:rgba(208,174,126,.16);
+      --line-2:rgba(208,174,126,.30);
+      --shadow:0 22px 60px rgba(0,0,0,.45);
+      --radius-xl:32px;
+      --radius-lg:26px;
+      --radius-md:20px;
+      --container:760px;
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(208,174,126,.10), transparent 22%),
+        radial-gradient(circle at 82% 24%, rgba(208,174,126,.08), transparent 18%),
+        radial-gradient(circle at 50% 82%, rgba(208,174,126,.08), transparent 16%),
+        linear-gradient(180deg, #030510 0%, #050816 48%, #050713 100%);
+      color:var(--text);
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 28% 64%, rgba(208,174,126,.14), transparent 16%),
+        radial-gradient(circle at 70% 42%, rgba(255,255,255,.03), transparent 18%),
+        radial-gradient(circle at 82% 86%, rgba(208,174,126,.10), transparent 15%);
+      filter:blur(34px);
+      opacity:.8;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:radial-gradient(rgba(255,255,255,.10) .7px, transparent .7px);
+      background-size:24px 24px;
+      opacity:.035;
+      mix-blend-mode:screen;
+    }
+
+    .progress-shell{
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:linear-gradient(180deg, rgba(4,6,18,.96), rgba(4,6,18,.78) 70%, rgba(4,6,18,0));
+    }
+
+    .progress-track{
+      width:100%;
+      height:5px;
+      background:rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg, #886946, var(--gold));
+      transition:width .35s ease;
+    }
+
+    .app{
+      width:min(100%, var(--container));
+      margin:0 auto;
+      padding:0 16px 38px;
+      position:relative;
+      z-index:2;
+    }
+
+    .screen{
+      min-height:100vh;
+      display:none;
+      flex-direction:column;
+      padding:18px 0 28px;
+    }
+
+    .screen.active{
+      display:flex;
+    }
+
+    .intro-screen{
+      justify-content:center;
+      text-align:center;
+      padding-top:38px;
+      padding-bottom:44px;
+    }
+
+    .eyebrow,
+    .result-label{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.28em;
+      font-size:13px;
+      line-height:1.4;
+      margin:0 0 18px;
+    }
+
+    .intro-title,
+    .question-title,
+    .result-title,
+    .result-subtitle,
+    .card-title,
+    .quote-text{
+      font-family:"Cormorant Garamond", Georgia, serif;
+      letter-spacing:-.02em;
+      line-height:1;
+      margin:0;
+    }
+
+    .intro-title{
+      font-size:clamp(2.8rem, 11vw, 5rem);
+      font-weight:600;
+      margin-bottom:18px;
+    }
+
+    .question-title{
+      font-size:clamp(2.2rem, 9vw, 4rem);
+      font-weight:600;
+      line-height:1.1;
+      text-align:center;
+      max-width:700px;
+      margin:0 auto 28px;
+    }
+
+    .result-title{
+      font-size:clamp(2.8rem, 10vw, 4.8rem);
+      font-weight:600;
+      margin-bottom:8px;
+    }
+
+    .result-subtitle{
+      font-size:clamp(1.9rem, 6.5vw, 3rem);
+      color:var(--gold);
+      font-style:italic;
+      line-height:1.08;
+      margin-bottom:16px;
+      font-weight:500;
+    }
+
+    .highlight{
+      color:var(--gold);
+      font-style:italic;
+    }
+
+    .intro-desc{
+      max-width:640px;
+      margin:0 auto 24px;
+      color:var(--muted);
+      font-size:clamp(1.02rem, 4.1vw, 1.38rem);
+      line-height:1.8;
+    }
+
+    .lead-card,
+    .result-card{
+      background:var(--card-2);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+
+    .lead-card{
+      width:min(100%, 560px);
+      margin:0 auto 18px;
+      padding:18px;
+      border-radius:28px;
+      text-align:left;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .field:last-child{
+      margin-bottom:0;
+    }
+
+    .label{
+      display:block;
+      margin:0 0 8px;
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .input{
+      width:100%;
+      min-height:56px;
+      border-radius:18px;
+      border:1px solid rgba(208,174,126,.16);
+      background:#090c1d;
+      color:var(--text);
+      padding:0 16px;
+      font-size:1rem;
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .input::placeholder{
+      color:var(--muted-2);
+    }
+
+    .input:focus{
+      border-color:rgba(208,174,126,.42);
+      box-shadow:0 0 0 3px rgba(208,174,126,.10);
+    }
+
+    .hint{
+      margin:10px 0 0;
+      color:rgba(184,170,157,.74);
+      font-size:.92rem;
+      line-height:1.55;
+    }
+
+    .btn,
+    .back-btn,
+    .option{
+      font-family:"Inter",sans-serif;
+    }
+
+    .btn{
+      width:min(100%, 560px);
+      min-height:66px;
+      border:none;
+      border-radius:999px;
+      background:var(--gold);
+      color:#0a0d1b;
+      font-size:clamp(1.06rem, 3.8vw, 1.28rem);
+      font-weight:800;
+      padding:18px 24px;
+      cursor:pointer;
+      box-shadow:0 14px 34px rgba(208,174,126,.22);
+      transition:transform .18s ease, filter .18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.02);
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--gold);
+      border:1px solid rgba(208,174,126,.24);
+      box-shadow:none;
+    }
+
+    .btn:focus-visible,
+    .back-btn:focus-visible,
+    .option:focus-visible,
+    .input:focus-visible{
+      outline:3px solid rgba(208,174,126,.35);
+      outline-offset:2px;
+    }
+
+    .intro-foot{
+      margin-top:22px;
+      color:rgba(184,170,157,.72);
+      font-size:clamp(1rem, 3.5vw, 1.14rem);
+    }
+
+    .top-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      min-height:46px;
+      margin-bottom:22px;
+    }
+
+    .back-btn{
+      border:1px solid rgba(208,174,126,.18);
+      background:transparent;
+      color:var(--muted);
+      border-radius:999px;
+      padding:10px 16px;
+      font-size:.95rem;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .step-count{
+      color:var(--gold);
+      font-family:"Cormorant Garamond", Georgia, serif;
+      font-size:clamp(1.95rem, 7vw, 2.7rem);
+      line-height:1;
+    }
+
+    .question-wrap{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      padding-top:8px;
+    }
+
+    .options{
+      display:grid;
+      gap:16px;
+    }
+
+    .option{
+      width:100%;
+      min-height:98px;
+      background:rgba(10,12,30,.94);
+      color:var(--muted);
+      border:1px solid rgba(208,174,126,.16);
+      border-radius:26px;
+      padding:18px 16px;
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      text-align:left;
+      cursor:pointer;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.01);
+      transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .option:hover{
+      transform:translateY(-1px);
+      border-color:rgba(208,174,126,.34);
+      background:rgba(12,14,34,.98);
+    }
+
+    .option-letter{
+      width:46px;
+      height:46px;
+      min-width:46px;
+      border-radius:999px;
+      background:rgba(87,74,103,.22);
+      color:#aa9986;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1rem;
+      font-weight:800;
+      margin-top:1px;
+    }
+
+    .option-text{
+      font-size:clamp(1.08rem, 4vw, 1.42rem);
+      line-height:1.55;
+      font-weight:400;
+      padding-top:2px;
+    }
+
+    .result-screen{
+      padding-top:20px;
+    }
+
+    .result-header{
+      text-align:center;
+      padding:12px 0 8px;
+    }
+
+    .result-cards{
+      display:grid;
+      gap:18px;
+      margin:14px 0 20px;
+    }
+
+    .result-card{
+      border-radius:28px;
+      padding:22px 18px;
+    }
+
+    .card-title{
+      color:var(--gold);
+      font-size:clamp(1.9rem, 7vw, 3rem);
+      font-weight:600;
+      margin-bottom:10px;
+    }
+
+    .result-card p{
+      margin:0;
+      color:#efe4d9;
+      font-size:clamp(1.06rem, 4vw, 1.36rem);
+      line-height:1.72;
+    }
+
+    .quote-box{
+      text-align:center;
+      padding:6px 8px 18px;
+      max-width:680px;
+      margin:0 auto;
+    }
+
+    .quote-text{
+      color:var(--gold);
+      font-size:clamp(1.9rem, 6.4vw, 2.9rem);
+      line-height:1.16;
+      font-style:italic;
+    }
+
+    .status{
+      min-height:24px;
+      text-align:center;
+      color:rgba(184,170,157,.76);
+      font-size:.94rem;
+      line-height:1.5;
+      margin-bottom:16px;
+    }
+
+    .result-actions{
+      display:grid;
+      gap:12px;
+      max-width:560px;
+      margin:0 auto 10px;
+    }
+
+    .debug{
+      display:none;
+      margin-top:18px;
+      border:1px solid rgba(208,174,126,.14);
+      background:rgba(10,12,30,.72);
+      border-radius:18px;
+      padding:14px;
+      font-size:.9rem;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    @media (min-width:768px){
+      .app{
+        padding:0 22px 44px;
+      }
+
+      .screen{
+        padding:22px 0 34px;
+      }
+
+      .top-row{
+        margin-bottom:32px;
+      }
+
+      .question-title{
+        margin-bottom:34px;
+      }
+
+      .options{
+        gap:18px;
+      }
+
+      .option{
+        min-height:108px;
+        padding:22px 20px;
+        border-radius:28px;
+      }
+
+      .option-letter{
+        width:50px;
+        height:50px;
+        min-width:50px;
+      }
+
+      .lead-card,
+      .result-card{
+        border-radius:30px;
+      }
+
+      .lead-card{
+        padding:20px;
+      }
+
+      .result-card{
+        padding:24px 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="progress-shell">
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
 
-<div class="container">
+  <main class="app">
+    <section class="screen intro-screen active" id="introScreen">
+      <p class="eyebrow">Diagnóstico Exclusivo</p>
 
-<div id="start">
-  <h1>Diagnóstico</h1>
+      <h1 class="intro-title">
+        Qual ferida do pai<br>
+        está sabotando <span class="highlight">seu<br>casamento?</span>
+      </h1>
 
-  <input id="nome" placeholder="Seu nome"><br><br>
-  <input id="whatsapp" placeholder="WhatsApp"><br>
+      <p class="intro-desc">
+        Responda 7 perguntas e descubra o padrão invisível que você aprendeu na infância
+        e que está afetando a forma como você ama hoje.
+      </p>
 
-  <div class="btn" onclick="start()">Começar</div>
-</div>
+      <div class="lead-card">
+        <div class="field">
+          <label class="label" for="leadName">Seu nome</label>
+          <input class="input" id="leadName" type="text" placeholder="Digite seu nome" autocomplete="name" />
+        </div>
 
-<div id="quiz" style="display:none;">
-  <div class="question" id="question"></div>
-  <div id="options"></div>
-</div>
+        <div class="field">
+          <label class="label" for="leadWhatsapp">Seu WhatsApp</label>
+          <input class="input" id="leadWhatsapp" type="tel" placeholder="(00) 00000-0000" autocomplete="tel" />
+        </div>
 
-<div id="result" style="display:none;">
-  <h1 id="resultTitle"></h1>
-</div>
+        <p class="hint">Preencha seus dados para iniciar o diagnóstico.</p>
+      </div>
 
-</div>
+      <button class="btn" id="startBtn" type="button">Começar o Diagnóstico</button>
 
-<script>
+      <p class="intro-foot">Leva menos de 2 minutos. Resultado imediato.</p>
+    </section>
 
-const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse";
+    <section class="screen" id="quizScreen" aria-live="polite">
+      <div class="top-row">
+        <button class="back-btn" id="backBtn" type="button">← Voltar</button>
+        <div class="step-count" id="stepCount">1/7</div>
+      </div>
 
-const questions = [
-{
-title:"Quando seu marido demonstra carinho...",
-options:[
-{text:"Fico desconfortável", scores:{frio:3}},
-{text:"Desconfio", scores:{ausente:3}},
-{text:"Não me sinto merecedora", scores:{condicional:3}},
-{text:"Fico irritada", scores:{explosivo:3}}
-]
-},
-{
-title:"Quando brigam...",
-options:[
-{text:"Me calo", scores:{frio:3}},
-{text:"Quero ir embora", scores:{ausente:3}},
-{text:"Faço tudo pra resolver", scores:{condicional:3}},
-{text:"Explodo", scores:{explosivo:3}}
-]
-}
-];
+      <div class="question-wrap">
+        <h2 class="question-title" id="questionTitle"></h2>
+        <div class="options" id="optionsContainer"></div>
+      </div>
+    </section>
 
-const results = {
-frio:"Filha do Pai Frio",
-ausente:"Filha do Pai Ausente",
-condicional:"Filha do Pai Condicional",
-explosivo:"Filha do Pai Explosivo"
-};
+    <section class="screen result-screen" id="resultScreen">
+      <div class="result-header">
+        <p class="result-label">Seu resultado</p>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-subtitle" id="resultSubtitle"></p>
+      </div>
 
-let current = 0;
-let answers = [];
+      <div class="result-cards">
+        <article class="result-card">
+          <h3 class="card-title">A Origem</h3>
+          <p id="resultOrigin"></p>
+        </article>
 
-function start(){
-document.getElementById("start").style.display="none";
-document.getElementById("quiz").style.display="block";
-render();
-}
+        <article class="result-card">
+          <h3 class="card-title">O Padrão no Casamento</h3>
+          <p id="resultPattern"></p>
+        </article>
 
-function render(){
-const q = questions[current];
-document.getElementById("question").innerText = q.title;
+        <article class="result-card">
+          <h3 class="card-title">O Impacto</h3>
+          <p id="resultImpact"></p>
+        </article>
+      </div>
 
-const container = document.getElementById("options");
-container.innerHTML="";
+      <div class="quote-box">
+        <p class="quote-text" id="resultQuote"></p>
+      </div>
 
-q.options.forEach(opt=>{
-  const div = document.createElement("div");
-  div.className="option";
-  div.innerText = opt.text;
-  div.onclick = ()=>select(opt);
-  container.appendChild(div);
-});
-}
+      <div class="status" id="submitStatus"></div>
 
-function select(option){
-answers.push(option);
-current++;
+      <div class="result-actions">
+        <button class="btn" id="restartBtn" type="button">Refazer Diagnóstico</button>
+        <button class="btn secondary" id="copyBtn" type="button">Copiar meu resultado</button>
+      </div>
 
-if(current < questions.length){
-  render();
-}else{
-  finish();
-}
-}
+      <div class="debug" id="debugBox"></div>
+    </section>
+  </main>
 
-function finish(){
+  <script>
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse";
 
-let totals = {frio:0, ausente:0, condicional:0, explosivo:0};
+    const FORM_FIELDS = {
+      nome: "entry.282931895",
+      whatsapp: "entry.1799475566",
+      resultado: "entry.2129250980",
+      subtitulo: "entry.375136606",
+      respostas: "entry.1276612145",
+      pontuacoes: "entry.712224340",
+      resumo: "entry.225565478"
+    };
 
-answers.forEach(a=>{
-  for(let k in a.scores){
-    totals[k]+=a.scores[k];
-  }
-});
+    const questions = [
+      {
+        title: "Quando seu marido tenta te elogiar ou demonstrar carinho, qual é sua primeira reação?",
+        options: [
+          {
+            letter: "A",
+            text: "Fico desconfortável e mudo de assunto",
+            scores: { frio: 3, ausente: 1, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: 'Desconfio e penso: "o que ele quer?"',
+            scores: { frio: 1, ausente: 2, condicional: 0, explosivo: 1 }
+          },
+          {
+            letter: "C",
+            text: "Aceito, mas por dentro sinto que não mereço",
+            scores: { frio: 1, ausente: 0, condicional: 3, explosivo: 0 }
+          },
+          {
+            letter: "D",
+            text: "Fico irritada, porque parece forçado",
+            scores: { frio: 1, ausente: 0, condicional: 0, explosivo: 3 }
+          }
+        ]
+      },
+      {
+        title: "Quando vocês brigam, o que você faz instintivamente?",
+        options: [
+          {
+            letter: "A",
+            text: "Me calo e finjo que está tudo bem",
+            scores: { frio: 3, ausente: 0, condicional: 1, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "Já penso em ir embora ou terminar",
+            scores: { frio: 0, ausente: 3, condicional: 0, explosivo: 1 }
+          },
+          {
+            letter: "C",
+            text: "Faço de tudo pra resolver, mesmo que eu esteja certa",
+            scores: { frio: 0, ausente: 0, condicional: 3, explosivo: 1 }
+          },
+          {
+            letter: "D",
+            text: "Explodo e depois me arrependo",
+            scores: { frio: 0, ausente: 0, condicional: 0, explosivo: 3 }
+          }
+        ]
+      },
+      {
+        title: "Como era a relação do seu pai com você na infância?",
+        options: [
+          {
+            letter: "A",
+            text: "Ele era presente, mas frio — sem carinho ou palavras de afeto",
+            scores: { frio: 4, ausente: 0, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "Ele era ausente — física ou emocionalmente",
+            scores: { frio: 0, ausente: 4, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "C",
+            text: "Ele só me dava atenção quando eu fazia algo pra agradar",
+            scores: { frio: 0, ausente: 0, condicional: 4, explosivo: 0 }
+          },
+          {
+            letter: "D",
+            text: "Ele era explosivo — eu nunca sabia quando ele ia ficar bravo",
+            scores: { frio: 0, ausente: 0, condicional: 0, explosivo: 4 }
+          }
+        ]
+      },
+      {
+        title: "Que tipo de homem sempre te atraiu mais?",
+        options: [
+          {
+            letter: "A",
+            text: "O reservado, difícil de decifrar",
+            scores: { frio: 3, ausente: 1, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "O independente, que não precisa de ninguém",
+            scores: { frio: 1, ausente: 3, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "C",
+            text: 'O que precisa de mim, que eu posso "salvar"',
+            scores: { frio: 0, ausente: 0, condicional: 3, explosivo: 1 }
+          },
+          {
+            letter: "D",
+            text: "O intenso, que vive na montanha-russa emocional",
+            scores: { frio: 0, ausente: 0, condicional: 0, explosivo: 3 }
+          }
+        ]
+      },
+      {
+        title: "Quando você se sente insegura no casamento, o que faz?",
+        options: [
+          {
+            letter: "A",
+            text: "Engulo o sentimento e sigo em frente",
+            scores: { frio: 3, ausente: 1, condicional: 1, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "Me afasto emocionalmente antes que ele me machuque",
+            scores: { frio: 1, ausente: 3, condicional: 0, explosivo: 0 }
+          },
+          {
+            letter: "C",
+            text: "Me esforço mais — cozinho, cuido, faço tudo perfeito",
+            scores: { frio: 0, ausente: 0, condicional: 3, explosivo: 0 }
+          },
+          {
+            letter: "D",
+            text: "Testo ele — provoco pra ver se ele realmente se importa",
+            scores: { frio: 0, ausente: 1, condicional: 0, explosivo: 3 }
+          }
+        ]
+      },
+      {
+        title: 'Complete a frase: "No fundo, eu sinto que..."',
+        options: [
+          {
+            letter: "A",
+            text: "...preciso ser forte e não posso mostrar fraqueza",
+            scores: { frio: 3, ausente: 0, condicional: 1, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "...se eu me apegar demais, vou me machucar",
+            scores: { frio: 0, ausente: 3, condicional: 0, explosivo: 1 }
+          },
+          {
+            letter: "C",
+            text: "...só sou amada quando sou útil",
+            scores: { frio: 0, ausente: 0, condicional: 4, explosivo: 0 }
+          },
+          {
+            letter: "D",
+            text: "...preciso de provas constantes de que ele me ama",
+            scores: { frio: 0, ausente: 1, condicional: 0, explosivo: 3 }
+          }
+        ]
+      },
+      {
+        title: "Se seu marido ficasse mais carinhoso e presente de repente, como você reagiria?",
+        options: [
+          {
+            letter: "A",
+            text: "Ficaria sem jeito — não saberia como receber",
+            scores: { frio: 3, ausente: 0, condicional: 1, explosivo: 0 }
+          },
+          {
+            letter: "B",
+            text: "Ficaria desconfiada — algo está errado",
+            scores: { frio: 1, ausente: 2, condicional: 0, explosivo: 1 }
+          },
+          {
+            letter: "C",
+            text: "Ficaria aliviada — finalmente estou fazendo algo certo",
+            scores: { frio: 0, ausente: 0, condicional: 3, explosivo: 0 }
+          },
+          {
+            letter: "D",
+            text: "Ficaria ansiosa — esperando o momento em que isso vai acabar",
+            scores: { frio: 0, ausente: 1, condicional: 0, explosivo: 3 }
+          }
+        ]
+      }
+    ];
 
-let winner = "frio";
+    const results = {
+      frio: {
+        title: "A Filha do Pai Frio",
+        subtitle: "O carinho que você não aprendeu a receber",
+        origin: "Seu pai estava presente, mas emocionalmente distante. Ele provia, mas não abraçava. Não elogiava, não dizia “eu te amo”. Você cresceu aprendendo que amor é algo silencioso — que se demonstra com ações, nunca com palavras ou toque.",
+        pattern: "No seu casamento, você tem dificuldade de receber carinho. Quando seu marido tenta ser afetuoso, você trava. Muda de assunto, faz piada, ou simplesmente não sabe o que fazer. Você engole o que sente porque aprendeu que mostrar emoção é fraqueza. E quando a dor acumula, você não explode — você se fecha.",
+        impact: "Seu marido sente que está amando uma parede. Ele tenta se aproximar, mas você recua. E quanto mais ele tenta, mais você se fecha. Não é que você não ame — é que ninguém te ensinou a receber amor.",
+        quote: "O primeiro passo é entender que você merece receber sem precisar provar nada."
+      },
+      ausente: {
+        title: "A Filha do Pai Ausente",
+        subtitle: "A dor de esperar e aprender a não depender",
+        origin: "Na infância, seu pai faltou — no corpo, na presença ou no vínculo emocional. Você cresceu com uma sensação silenciosa de abandono e aprendeu a não esperar demais de ninguém para não se decepcionar.",
+        pattern: "No casamento, quando começa a se apegar de verdade, algo em você acende um alerta. Você esfria, se distancia ou começa a imaginar o pior. Antes que o outro te decepcione, você tenta sair na frente para se proteger.",
+        impact: "Isso cria distância emocional, insegurança e dificuldade de confiar no amor estável. Seu marido pode sentir que nunca consegue entrar totalmente no seu mundo, porque uma parte sua está sempre pronta para fugir.",
+        quote: "Amor seguro não precisa ser arrancado à força — ele pode ser recebido com calma, constância e confiança."
+      },
+      condicional: {
+        title: "A Filha do Pai Condicional",
+        subtitle: "A crença de que você só merece amor quando agrada",
+        origin: "Você aprendeu cedo que atenção vinha quando você acertava, ajudava, servia ou correspondia ao que esperavam de você. No fundo, ficou a ideia de que ser amada depende do que você entrega.",
+        pattern: "No casamento, você tenta compensar tudo sendo boa demais, disponível demais, responsável demais. Cuida, organiza, resolve, se antecipa. E sem perceber, começa a medir seu valor pela utilidade dentro da relação.",
+        impact: "Isso gera sobrecarga, ressentimento e uma sensação constante de insuficiência. Seu marido pode até receber muito de você, mas talvez nunca consiga alcançar a ferida escondida por trás desse esforço: o medo de não ser amada só por existir.",
+        quote: "Você não precisa se tornar indispensável para merecer amor — sua presença já tem valor."
+      },
+      explosivo: {
+        title: "A Filha do Pai Explosivo",
+        subtitle: "O amor que você vive em estado de alerta",
+        origin: "Seu pai era imprevisível: uma hora estava bem, em outra assustava, cobrava ou explodia. Você cresceu tentando ler sinais, evitar conflitos e se preparar para o pior.",
+        pattern: "No casamento, sua ansiedade relacional aparece rápido. Você testa, provoca, interpreta o silêncio como rejeição e fica hipervigilante. Mesmo em momentos bons, uma parte sua espera a queda.",
+        impact: "Isso desgasta a relação, porque o amor passa a ser vivido em tensão. Seu marido pode sentir que está sempre sendo colocado à prova, enquanto você se sente constantemente insegura, mesmo quando é amada.",
+        quote: "Nem todo vínculo termina em dor — é possível amar sem viver esperando a próxima ferida."
+      }
+    };
 
-Object.keys(totals).forEach(k=>{
-  if(totals[k] > totals[winner]) winner = k;
-});
+    const introScreen = document.getElementById("introScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
 
-const resultText = results[winner];
+    const progressBar = document.getElementById("progressBar");
+    const startBtn = document.getElementById("startBtn");
+    const backBtn = document.getElementById("backBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const copyBtn = document.getElementById("copyBtn");
 
-document.getElementById("quiz").style.display="none";
-document.getElementById("result").style.display="block";
-document.getElementById("resultTitle").innerText = resultText;
+    const leadName = document.getElementById("leadName");
+    const leadWhatsapp = document.getElementById("leadWhatsapp");
 
-sendToGoogle(resultText, totals);
-}
+    const stepCount = document.getElementById("stepCount");
+    const questionTitle = document.getElementById("questionTitle");
+    const optionsContainer = document.getElementById("optionsContainer");
 
-function sendToGoogle(result, totals){
+    const resultTitle = document.getElementById("resultTitle");
+    const resultSubtitle = document.getElementById("resultSubtitle");
+    const resultOrigin = document.getElementById("resultOrigin");
+    const resultPattern = document.getElementById("resultPattern");
+    const resultImpact = document.getElementById("resultImpact");
+    const resultQuote = document.getElementById("resultQuote");
+    const submitStatus = document.getElementById("submitStatus");
+    const debugBox = document.getElementById("debugBox");
 
-const nome = document.getElementById("nome").value;
-const whatsapp = document.getElementById("whatsapp").value;
+    let currentQuestion = 0;
+    let answers = [];
+    let alreadySubmitted = false;
 
-const formData = new FormData();
+    function showScreen(screen){
+      [introScreen, quizScreen, resultScreen].forEach(s => s.classList.remove("active"));
+      screen.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
-formData.append("entry.282931895", nome);
-formData.append("entry.1799475566", whatsapp);
-formData.append("entry.2129250980", result);
-formData.append("entry.375136606", result);
-formData.append("entry.1276612145", JSON.stringify(answers));
-formData.append("entry.712224340", JSON.stringify(totals));
-formData.append("entry.225565478", result + " - " + JSON.stringify(answers));
+    function updateProgress(){
+      if (introScreen.classList.contains("active")) {
+        progressBar.style.width = "0%";
+        return;
+      }
 
-fetch(FORM_URL, {
-  method: "POST",
-  mode: "no-cors",
-  body: formData
-});
+      if (quizScreen.classList.contains("active")) {
+        const percent = ((currentQuestion + 1) / questions.length) * 100;
+        progressBar.style.width = `${percent}%`;
+        return;
+      }
 
-}
+      progressBar.style.width = "100%";
+    }
 
-</script>
+    function normalizePhone(value){
+      return value.replace(/\D/g, "");
+    }
 
+    function formatPhone(value){
+      const numbers = normalizePhone(value).slice(0, 11);
+      if (numbers.length <= 2) return numbers;
+      if (numbers.length <= 7) return `(${numbers.slice(0,2)}) ${numbers.slice(2)}`;
+      return `(${numbers.slice(0,2)}) ${numbers.slice(2,7)}-${numbers.slice(7,11)}`;
+    }
+
+    leadWhatsapp.addEventListener("input", (e) => {
+      e.target.value = formatPhone(e.target.value);
+    });
+
+    function validateLead(){
+      const name = leadName.value.trim();
+      const phone = normalizePhone(leadWhatsapp.value);
+
+      if (!name) {
+        alert("Digite seu nome para continuar.");
+        leadName.focus();
+        return false;
+      }
+
+      if (phone.length < 10) {
+        alert("Digite um WhatsApp válido para continuar.");
+        leadWhatsapp.focus();
+        return false;
+      }
+
+      return true;
+    }
+
+    function renderQuestion(){
+      const question = questions[currentQuestion];
+      questionTitle.textContent = question.title;
+      stepCount.textContent = `${currentQuestion + 1}/${questions.length}`;
+      optionsContainer.innerHTML = "";
+
+      question.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.innerHTML = `
+          <span class="option-letter">${option.letter}</span>
+          <span class="option-text">${option.text}</span>
+        `;
+        button.addEventListener("click", () => selectOption(option));
+        optionsContainer.appendChild(button);
+      });
+
+      updateProgress();
+    }
+
+    function selectOption(option){
+      answers[currentQuestion] = {
+        question: questions[currentQuestion].title,
+        letter: option.letter,
+        text: option.text,
+        scores: option.scores
+      };
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function getTotals(){
+      const totals = {
+        frio: 0,
+        ausente: 0,
+        condicional: 0,
+        explosivo: 0
+      };
+
+      answers.forEach((answer) => {
+        Object.keys(totals).forEach((key) => {
+          totals[key] += answer.scores[key] || 0;
+        });
+      });
+
+      return totals;
+    }
+
+    function getWinner(totals){
+      let winner = "frio";
+      let highest = totals[winner];
+
+      Object.keys(totals).forEach((key) => {
+        if (totals[key] > highest) {
+          highest = totals[key];
+          winner = key;
+        }
+      });
+
+      return winner;
+    }
+
+    function buildAnswersText(){
+      return answers.map((item, index) => {
+        return `${index + 1}. ${item.question}\nResposta: ${item.letter} - ${item.text}`;
+      }).join("\n\n");
+    }
+
+    function buildScoresText(totals){
+      return `Frio: ${totals.frio} | Ausente: ${totals.ausente} | Condicional: ${totals.condicional} | Explosivo: ${totals.explosivo}`;
+    }
+
+    function buildSummary(result, totals){
+      return [
+        `Nome: ${leadName.value.trim()}`,
+        `WhatsApp: ${leadWhatsapp.value.trim()}`,
+        `Resultado: ${result.title}`,
+        `Subtítulo: ${result.subtitle}`,
+        `Pontuações: ${buildScoresText(totals)}`,
+        ``,
+        `Respostas:`,
+        buildAnswersText()
+      ].join("\n");
+    }
+
+    async function sendToGoogleForms(result, totals){
+      if (alreadySubmitted) return;
+
+      const formData = new FormData();
+      formData.append(FORM_FIELDS.nome, leadName.value.trim());
+      formData.append(FORM_FIELDS.whatsapp, leadWhatsapp.value.trim());
+      formData.append(FORM_FIELDS.resultado, result.title);
+      formData.append(FORM_FIELDS.subtitulo, result.subtitle);
+      formData.append(FORM_FIELDS.respostas, buildAnswersText());
+      formData.append(FORM_FIELDS.pontuacoes, buildScoresText(totals));
+      formData.append(FORM_FIELDS.resumo, buildSummary(result, totals));
+
+      try {
+        await fetch(FORM_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: formData
+        });
+        alreadySubmitted = true;
+        submitStatus.textContent = "Seus dados foram enviados com sucesso.";
+      } catch (error) {
+        submitStatus.textContent = "Não foi possível confirmar o envio automático.";
+      }
+    }
+
+    function showResult(){
+      const totals = getTotals();
+      const winnerKey = getWinner(totals);
+      const result = results[winnerKey];
+
+      resultTitle.textContent = result.title;
+      resultSubtitle.textContent = result.subtitle;
+      resultOrigin.textContent = result.origin;
+      resultPattern.textContent = result.pattern;
+      resultImpact.textContent = result.impact;
+      resultQuote.textContent = result.quote;
+
+      debugBox.innerHTML = `
+        <strong>Debug:</strong><br>
+        Frio: ${totals.frio}<br>
+        Ausente: ${totals.ausente}<br>
+        Condicional: ${totals.condicional}<br>
+        Explosivo: ${totals.explosivo}
+      `;
+
+      showScreen(resultScreen);
+      updateProgress();
+      sendToGoogleForms(result, totals);
+    }
+
+    startBtn.addEventListener("click", () => {
+      if (!validateLead()) return;
+      currentQuestion = 0;
+      answers = [];
+      alreadySubmitted = false;
+      submitStatus.textContent = "";
+      renderQuestion();
+      showScreen(quizScreen);
+    });
+
+    backBtn.addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      } else {
+        showScreen(introScreen);
+        updateProgress();
+      }
+    });
+
+    restartBtn.addEventListener("click", () => {
+      currentQuestion = 0;
+      answers = [];
+      alreadySubmitted = false;
+      submitStatus.textContent = "";
+      showScreen(introScreen);
+      updateProgress();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      const content = [
+        resultTitle.textContent,
+        resultSubtitle.textContent,
+        "",
+        "A Origem:",
+        resultOrigin.textContent,
+        "",
+        "O Padrão no Casamento:",
+        resultPattern.textContent,
+        "",
+        "O Impacto:",
+        resultImpact.textContent,
+        "",
+        resultQuote.textContent
+      ].join("\n");
+
+      try {
+        await navigator.clipboard.writeText(content);
+        copyBtn.textContent = "Resultado copiado";
+        setTimeout(() => {
+          copyBtn.textContent = "Copiar meu resultado";
+        }, 1800);
+      } catch (error) {
+        alert("Não foi possível copiar automaticamente.");
+      }
+    });
+
+    updateProgress();
+  </script>
 </body>
 </html>
