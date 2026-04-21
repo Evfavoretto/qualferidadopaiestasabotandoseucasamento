@@ -1,20 +1,27 @@
-<!-- VERSÃO COMPLETA ORIGINAL + OTIMIZAÇÃO DE CONVERSÃO -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Diagnóstico Exclusivo | Qual ferida do pai está sabotando seu casamento?</title>
+  <title>Diagnóstico Exclusivo</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    :root{
+      --bg:#ffffff;
+      --card:#f9f9f9;
+      --gold:#d4af37;
+      --text:#14532d;
+      --muted:#4e7d57;
+    }
+
     body{
       margin:0;
-      font-family:Inter;
-      background:#050713;
-      color:#f5efe9;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Inter", sans-serif;
     }
 
     .app{
@@ -24,10 +31,10 @@
     }
 
     .screen{display:none;}
-    .active{display:block;}
+    .screen.active{display:block;}
 
     h1,h2{
-      font-family:"Cormorant Garamond";
+      font-family:"Cormorant Garamond", serif;
       text-align:center;
     }
 
@@ -36,7 +43,8 @@
       padding:18px;
       border-radius:40px;
       border:none;
-      background:#d0ae7e;
+      background:var(--gold);
+      color:#fff;
       font-weight:800;
       cursor:pointer;
     }
@@ -44,19 +52,20 @@
     .option{
       width:100%;
       padding:18px;
-      margin:12px 0;
+      margin:10px 0;
+      background:#fff;
+      border:1px solid #e0e0e0;
+      color:var(--text);
       border-radius:20px;
-      background:#111;
-      border:1px solid #333;
-      color:#fff;
       cursor:pointer;
     }
 
     .card{
-      background:#0b0d22;
+      background:var(--card);
       padding:20px;
       border-radius:20px;
       margin-top:20px;
+      border:1px solid #e5e5e5;
     }
 
     .input{
@@ -64,7 +73,7 @@
       padding:14px;
       margin:8px 0;
       border-radius:10px;
-      border:none;
+      border:1px solid #ddd;
     }
   </style>
 </head>
@@ -74,41 +83,38 @@
 <div class="app">
 
 <!-- INTRO -->
-<section class="screen active" id="intro">
+<section class="screen active" id="introScreen">
   <h1>Qual ferida do pai está sabotando seu casamento?</h1>
   <p style="text-align:center">Responda 7 perguntas e descubra o padrão invisível que afeta sua forma de amar.</p>
-  <button class="btn" onclick="start()">Começar Diagnóstico</button>
+  <button class="btn" id="startBtn">Começar Diagnóstico</button>
 </section>
 
 <!-- QUIZ -->
-<section class="screen" id="quiz">
-  <h2 id="question"></h2>
-  <div id="answers"></div>
+<section class="screen" id="quizScreen">
+  <h2 id="questionTitle"></h2>
+  <div id="optionsContainer"></div>
+</section>
+
+<!-- FORM FINAL -->
+<section class="screen" id="leadScreen">
+
+  <h2>Seu resultado está pronto 👇</h2>
+
+  <div class="card">
+    <input class="input" id="finalName" placeholder="Seu nome">
+    <input class="input" id="finalWhatsapp" placeholder="(00) 00000-0000">
+
+    <button class="btn" id="finalBtn">
+      Ver meu resultado
+    </button>
+  </div>
+
 </section>
 
 <!-- RESULTADO -->
-<section class="screen" id="result">
-
-  <h2 id="resTitle"></h2>
-  <p id="resSubtitle"></p>
-  <p id="resText"></p>
-
-  <!-- CAPTURA FINAL -->
-  <div class="card">
-
-    <p style="text-align:center;color:#d0ae7e;font-size:1.2rem;">
-      🔒 Seu resultado completo está a um clique
-    </p>
-
-    <input class="input" id="name" placeholder="Seu nome">
-    <input class="input" id="phone" placeholder="WhatsApp">
-
-    <button class="btn" onclick="sendLead()">
-      Ver meu resultado completo
-    </button>
-
-  </div>
-
+<section class="screen" id="resultScreen">
+  <h2 id="resultTitle"></h2>
+  <p id="resultText"></p>
 </section>
 
 </div>
@@ -117,8 +123,8 @@
 
 const questions = [
 {
-q:"Quando seu marido tenta te elogiar...",
-a:[
+title:"Quando seu marido tenta te elogiar...",
+options:[
 ["Fico desconfortável","frio"],
 ["Desconfio","ausente"],
 ["Não mereço","condicional"],
@@ -126,8 +132,8 @@ a:[
 ]
 },
 {
-q:"Quando brigam...",
-a:[
+title:"Quando vocês brigam...",
+options:[
 ["Me calo","frio"],
 ["Quero ir embora","ausente"],
 ["Resolvo tudo","condicional"],
@@ -135,8 +141,8 @@ a:[
 ]
 },
 {
-q:"Como era seu pai?",
-a:[
+title:"Como era a relação com seu pai?",
+options:[
 ["Frio","frio"],
 ["Ausente","ausente"],
 ["Condicional","condicional"],
@@ -144,8 +150,8 @@ a:[
 ]
 },
 {
-q:"Que tipo de homem te atrai?",
-a:[
+title:"Que tipo de homem te atrai?",
+options:[
 ["Reservado","frio"],
 ["Independente","ausente"],
 ["Precisa de mim","condicional"],
@@ -153,17 +159,17 @@ a:[
 ]
 },
 {
-q:"Quando está insegura...",
-a:[
+title:"Quando você se sente insegura...",
+options:[
 ["Engulo","frio"],
 ["Me afasto","ausente"],
-["Me esforço mais","condicional"],
+["Me esforço","condicional"],
 ["Testo ele","explosivo"]
 ]
 },
 {
-q:"No fundo você sente que...",
-a:[
+title:"No fundo você sente que...",
+options:[
 ["Preciso ser forte","frio"],
 ["Vou me machucar","ausente"],
 ["Preciso agradar","condicional"],
@@ -171,8 +177,8 @@ a:[
 ]
 },
 {
-q:"Se ele fosse mais carinhoso...",
-a:[
+title:"Se ele fosse mais carinhoso...",
+options:[
 ["Ficaria sem jeito","frio"],
 ["Desconfiaria","ausente"],
 ["Aliviada","condicional"],
@@ -182,87 +188,76 @@ a:[
 ];
 
 const results = {
-frio:{
-title:"A Filha do Pai Frio",
-text:"Você não aprendeu a receber amor."
-},
-ausente:{
-title:"A Filha do Pai Ausente",
-text:"Você teme abandono."
-},
-condicional:{
-title:"A Filha do Pai Condicional",
-text:"Você acha que precisa merecer amor."
-},
-explosivo:{
-title:"A Filha do Pai Explosivo",
-text:"Você vive em alerta emocional."
-}
+frio:"A Filha do Pai Frio",
+ausente:"A Filha do Pai Ausente",
+condicional:"A Filha do Pai Condicional",
+explosivo:"A Filha do Pai Explosivo"
 };
 
 let step=0;
 let score={frio:0,ausente:0,condicional:0,explosivo:0};
 
-function start(){
-document.getElementById("intro").classList.remove("active");
-document.getElementById("quiz").classList.add("active");
-render();
-}
+const introScreen = document.getElementById("introScreen");
+const quizScreen = document.getElementById("quizScreen");
+const leadScreen = document.getElementById("leadScreen");
+const resultScreen = document.getElementById("resultScreen");
+
+document.getElementById("startBtn").onclick = () => {
+  introScreen.classList.remove("active");
+  quizScreen.classList.add("active");
+  render();
+};
 
 function render(){
-let q=questions[step];
-document.getElementById("question").innerText=q.q;
+  let q = questions[step];
+  document.getElementById("questionTitle").innerText = q.title;
 
-let html="";
-q.a.forEach(o=>{
-html+=`<button class="option" onclick="select('${o[1]}')">${o[0]}</button>`;
-});
-document.getElementById("answers").innerHTML=html;
+  let html="";
+  q.options.forEach(o=>{
+    html+=`<button class="option" onclick="select('${o[1]}')">${o[0]}</button>`;
+  });
+
+  document.getElementById("optionsContainer").innerHTML = html;
 }
 
 function select(type){
-score[type]++;
-step++;
+  score[type]++;
+  step++;
 
-if(step<questions.length){
-render();
-}else{
-finish();
-}
-}
-
-function finish(){
-document.getElementById("quiz").classList.remove("active");
-document.getElementById("result").classList.add("active");
-
-let winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
-
-document.getElementById("resTitle").innerText=results[winner].title;
-document.getElementById("resText").innerText=results[winner].text;
+  if(step < questions.length){
+    render();
+  }else{
+    quizScreen.classList.remove("active");
+    leadScreen.classList.add("active");
+  }
 }
 
-function sendLead(){
+document.getElementById("finalBtn").onclick = () => {
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
+  let name = document.getElementById("finalName").value;
+  let phone = document.getElementById("finalWhatsapp").value;
 
-if(!name || phone.length<10){
-alert("Preencha corretamente");
-return;
-}
+  if(!name || phone.length < 10){
+    alert("Preencha corretamente");
+    return;
+  }
 
-fetch("https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse",{
-method:"POST",
-mode:"no-cors",
-body:new URLSearchParams({
-"entry.282931895":name,
-"entry.1799475566":phone
-})
-});
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse",{
+    method:"POST",
+    mode:"no-cors",
+    body:new URLSearchParams({
+      "entry.282931895":name,
+      "entry.1799475566":phone
+    })
+  });
 
-alert("Enviado com sucesso!");
+  let winner = Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
 
-}
+  document.getElementById("resultTitle").innerText = results[winner];
+
+  leadScreen.classList.remove("active");
+  resultScreen.classList.add("active");
+};
 
 </script>
 
