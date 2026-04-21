@@ -1,95 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Diagnóstico Exclusivo</title>
+  <title>Diagnóstico Exclusivo | Qual ferida do pai está sabotando seu casamento?</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    :root{
+      --bg:#050713;
+      --bg-2:#090b1d;
+      --card:#0b0d22;
+      --gold:#d0ae7e;
+      --text:#f5efe9;
+      --muted:#b8aa9d;
+    }
 
-:root{
---bg:#f6f7f4;
---card:#ffffff;
---gold:#c6a86b;
---gold-2:#a8894f;
---text:#1f3d2b;
---muted:#6b7c6f;
---line:rgba(0,0,0,.08);
---shadow:0 20px 50px rgba(0,0,0,.08);
-}
+    body{
+      margin:0;
+      font-family:"Inter",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
 
-*{box-sizing:border-box}
+    .app{
+      max-width:760px;
+      margin:auto;
+      padding:20px;
+    }
 
-body{
-margin:0;
-font-family:"Inter",sans-serif;
-background:linear-gradient(180deg,#f8f9f6,#eef1eb);
-color:var(--text);
-}
+    .screen{display:none;}
+    .screen.active{display:block;}
 
-.app{
-max-width:760px;
-margin:auto;
-padding:20px;
-}
+    .btn{
+      width:100%;
+      padding:18px;
+      border-radius:999px;
+      border:none;
+      background:var(--gold);
+      font-weight:800;
+      cursor:pointer;
+    }
 
-.screen{display:none}
-.screen.active{display:block}
+    .option{
+      width:100%;
+      padding:18px;
+      margin:12px 0;
+      border-radius:20px;
+      background:#111;
+      border:1px solid #333;
+      color:#fff;
+      cursor:pointer;
+    }
 
-h1,h2{
-font-family:"Cormorant Garamond",serif;
-text-align:center;
-}
+    .lead-card{
+      background:#0b0d22;
+      padding:20px;
+      border-radius:20px;
+      margin-top:20px;
+    }
 
-.btn{
-width:100%;
-padding:18px;
-border-radius:999px;
-border:none;
-background:linear-gradient(135deg,var(--gold),var(--gold-2));
-color:#fff;
-font-weight:800;
-cursor:pointer;
-box-shadow:0 10px 25px rgba(198,168,107,.3);
-}
-
-.option{
-width:100%;
-padding:18px;
-margin:12px 0;
-border-radius:22px;
-background:#fff;
-border:1px solid var(--line);
-cursor:pointer;
-}
-
-.card{
-background:#fff;
-padding:24px;
-border-radius:26px;
-margin-top:20px;
-box-shadow:var(--shadow);
-}
-
-.input{
-width:100%;
-padding:14px;
-margin:10px 0;
-border-radius:12px;
-border:1px solid var(--line);
-}
-
-.blur{
-filter:blur(6px);
-opacity:.6;
-}
-
-.highlight{color:var(--gold)}
-
-</style>
+    .input{
+      width:100%;
+      padding:14px;
+      margin:8px 0;
+      border-radius:10px;
+      border:none;
+    }
+  </style>
 </head>
 
 <body>
@@ -97,141 +79,179 @@ opacity:.6;
 <div class="app">
 
 <!-- INTRO -->
-<section class="screen active" id="intro">
-<h1>Qual ferida do pai está sabotando seu casamento?</h1>
-<button class="btn" onclick="start()">Começar Diagnóstico</button>
+<section class="screen active" id="introScreen">
+  <h1>Qual ferida do pai está sabotando seu casamento?</h1>
+  <button class="btn" id="startBtn">Começar Diagnóstico</button>
 </section>
 
 <!-- QUIZ -->
-<section class="screen" id="quiz">
-<h2 id="question"></h2>
-<div id="answers"></div>
+<section class="screen" id="quizScreen">
+  <h2 id="questionTitle"></h2>
+  <div id="optionsContainer"></div>
 </section>
 
-<!-- TEASER + FORM -->
-<section class="screen" id="lead">
+<!-- FORM (AGORA APÓS QUIZ) -->
+<section class="screen" id="leadScreen">
+  <h2>Seu resultado está pronto</h2>
 
-<h2>Seu diagnóstico começou a aparecer…</h2>
+  <div class="lead-card">
+    <input class="input" id="finalName" placeholder="Seu nome">
+    <input class="input" id="finalWhatsapp" placeholder="WhatsApp">
 
-<div class="card">
-
-<p><strong id="partialTitle"></strong></p>
-
-<p class="blur" id="partialText"></p>
-
-<p style="text-align:center;margin-top:10px">
-🔒 Desbloqueie seu diagnóstico completo
-</p>
-
-<input class="input" id="name" placeholder="Seu nome">
-<input class="input" id="phone" placeholder="WhatsApp">
-
-<button class="btn" onclick="unlock()">
-Ver diagnóstico completo
-</button>
-
-</div>
-
+    <button class="btn" id="finalBtn">
+      Ver meu resultado
+    </button>
+  </div>
 </section>
 
 <!-- RESULTADO -->
-<section class="screen" id="result">
-<h2 id="resTitle"></h2>
-<p id="resText"></p>
+<section class="screen" id="resultScreen">
+  <h2 id="resultTitle"></h2>
+  <p id="resultText"></p>
 </section>
 
 </div>
 
 <script>
 
-const questions=[
-// suas perguntas mantidas
-{q:"Quando seu marido tenta te elogiar...",a:[["Fico desconfortável","frio"],["Desconfio","ausente"],["Não mereço","condicional"],["Me irrito","explosivo"]]},
-{q:"Quando brigam...",a:[["Me calo","frio"],["Quero ir embora","ausente"],["Resolvo tudo","condicional"],["Explodo","explosivo"]]},
-{q:"Como era seu pai?",a:[["Frio","frio"],["Ausente","ausente"],["Condicional","condicional"],["Explosivo","explosivo"]]},
-{q:"Que tipo de homem te atrai?",a:[["Reservado","frio"],["Independente","ausente"],["Precisa de mim","condicional"],["Intenso","explosivo"]]},
-{q:"Quando está insegura...",a:[["Engulo","frio"],["Me afasto","ausente"],["Me esforço","condicional"],["Testo","explosivo"]]},
-{q:"No fundo você sente que...",a:[["Preciso ser forte","frio"],["Vou me machucar","ausente"],["Preciso agradar","condicional"],["Preciso de provas","explosivo"]]},
-{q:"Se ele fosse mais carinhoso...",a:[["Sem jeito","frio"],["Desconfio","ausente"],["Aliviada","condicional"],["Ansiosa","explosivo"]]}
+const questions = [
+{
+title:"Quando seu marido tenta te elogiar...",
+options:[
+["Fico desconfortável","frio"],
+["Desconfio","ausente"],
+["Não mereço","condicional"],
+["Me irrito","explosivo"]
+]
+},
+{
+title:"Quando brigam...",
+options:[
+["Me calo","frio"],
+["Quero ir embora","ausente"],
+["Resolvo tudo","condicional"],
+["Explodo","explosivo"]
+]
+},
+{
+title:"Como era seu pai?",
+options:[
+["Frio","frio"],
+["Ausente","ausente"],
+["Condicional","condicional"],
+["Explosivo","explosivo"]
+]
+},
+{
+title:"Que tipo de homem te atrai?",
+options:[
+["Reservado","frio"],
+["Independente","ausente"],
+["Precisa de mim","condicional"],
+["Intenso","explosivo"]
+]
+},
+{
+title:"Quando está insegura...",
+options:[
+["Engulo","frio"],
+["Me afasto","ausente"],
+["Me esforço mais","condicional"],
+["Testo ele","explosivo"]
+]
+},
+{
+title:"No fundo você sente que...",
+options:[
+["Preciso ser forte","frio"],
+["Vou me machucar","ausente"],
+["Preciso agradar","condicional"],
+["Preciso de provas","explosivo"]
+]
+},
+{
+title:"Se ele fosse mais carinhoso...",
+options:[
+["Ficaria sem jeito","frio"],
+["Desconfiaria","ausente"],
+["Aliviada","condicional"],
+["Ansiosa","explosivo"]
+]
+}
 ];
 
-const results={
+const results = {
 frio:{title:"A Filha do Pai Frio",text:"Você não aprendeu a receber amor."},
 ausente:{title:"A Filha do Pai Ausente",text:"Você teme abandono."},
-condicional:{title:"A Filha do Pai Condicional",text:"Você acredita que precisa merecer amor."},
+condicional:{title:"A Filha do Pai Condicional",text:"Você acha que precisa merecer amor."},
 explosivo:{title:"A Filha do Pai Explosivo",text:"Você vive em alerta emocional."}
 };
 
-let step=0;
+let currentQuestion = 0;
 let score={frio:0,ausente:0,condicional:0,explosivo:0};
-let winner="";
 
-function start(){
-switchScreen("intro","quiz");
-render();
+const introScreen = document.getElementById("introScreen");
+const quizScreen = document.getElementById("quizScreen");
+const leadScreen = document.getElementById("leadScreen");
+const resultScreen = document.getElementById("resultScreen");
+
+document.getElementById("startBtn").onclick = () => {
+  introScreen.classList.remove("active");
+  quizScreen.classList.add("active");
+  renderQuestion();
+};
+
+function renderQuestion(){
+  let q = questions[currentQuestion];
+  document.getElementById("questionTitle").innerText = q.title;
+
+  let html="";
+  q.options.forEach(o=>{
+    html+=`<button class="option" onclick="selectOption('${o[1]}')">${o[0]}</button>`;
+  });
+
+  document.getElementById("optionsContainer").innerHTML = html;
 }
 
-function render(){
-let q=questions[step];
-document.getElementById("question").innerText=q.q;
+function selectOption(type){
+  score[type]++;
+  currentQuestion++;
 
-let html="";
-q.a.forEach(o=>{
-html+=`<button class="option" onclick="select('${o[1]}')">${o[0]}</button>`;
-});
-document.getElementById("answers").innerHTML=html;
+  if(currentQuestion < questions.length){
+    renderQuestion();
+  }else{
+    quizScreen.classList.remove("active");
+    leadScreen.classList.add("active");
+  }
 }
 
-function select(type){
-score[type]++;
-step++;
+document.getElementById("finalBtn").onclick = () => {
 
-if(step<questions.length){
-render();
-}else{
-finish();
-}
-}
+  let name = document.getElementById("finalName").value;
+  let phone = document.getElementById("finalWhatsapp").value;
 
-function finish(){
+  if(!name || phone.length < 10){
+    alert("Preencha corretamente");
+    return;
+  }
 
-winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse",{
+    method:"POST",
+    mode:"no-cors",
+    body:new URLSearchParams({
+      "entry.282931895":name,
+      "entry.1799475566":phone
+    })
+  });
 
-document.getElementById("partialTitle").innerText=results[winner].title;
-document.getElementById("partialText").innerText=results[winner].text;
+  let winner = Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
 
-switchScreen("quiz","lead");
-}
+  document.getElementById("resultTitle").innerText = results[winner].title;
+  document.getElementById("resultText").innerText = results[winner].text;
 
-function unlock(){
-
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-
-if(!name || phone.length<10){
-alert("Preencha corretamente");
-return;
-}
-
-fetch("https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse",{
-method:"POST",
-mode:"no-cors",
-body:new URLSearchParams({
-"entry.282931895":name,
-"entry.1799475566":phone
-})
-});
-
-document.getElementById("resTitle").innerText=results[winner].title;
-document.getElementById("resText").innerText=results[winner].text;
-
-switchScreen("lead","result");
-}
-
-function switchScreen(from,to){
-document.getElementById(from).classList.remove("active");
-document.getElementById(to).classList.add("active");
-}
+  leadScreen.classList.remove("active");
+  resultScreen.classList.add("active");
+};
 
 </script>
 
