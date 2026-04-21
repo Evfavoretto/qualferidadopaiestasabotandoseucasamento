@@ -1,3 +1,4 @@
+<!-- VERSÃO COMPLETA ORIGINAL + OTIMIZAÇÃO DE CONVERSÃO -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,8 +13,8 @@
     body{
       margin:0;
       font-family:Inter;
-      background:#ffffff; /* fundo branco */
-      color:#14532d; /* texto verde */
+      background:#050713;
+      color:#f5efe9;
     }
 
     .app{
@@ -35,8 +36,7 @@
       padding:18px;
       border-radius:40px;
       border:none;
-      background:#d4af37; /* dourado */
-      color:#fff;
+      background:#d0ae7e;
       font-weight:800;
       cursor:pointer;
     }
@@ -46,18 +46,17 @@
       padding:18px;
       margin:12px 0;
       border-radius:20px;
-      background:#ffffff;
-      border:1px solid #ddd;
-      color:#14532d;
+      background:#111;
+      border:1px solid #333;
+      color:#fff;
       cursor:pointer;
     }
 
     .card{
-      background:#f9f9f9;
+      background:#0b0d22;
       padding:20px;
       border-radius:20px;
       margin-top:20px;
-      border:1px solid #e5e5e5;
     }
 
     .input{
@@ -65,7 +64,7 @@
       padding:14px;
       margin:8px 0;
       border-radius:10px;
-      border:1px solid #ccc;
+      border:none;
     }
   </style>
 </head>
@@ -87,29 +86,28 @@
   <div id="answers"></div>
 </section>
 
-<!-- FORM (AGORA DEPOIS DO QUIZ) -->
-<section class="screen" id="lead">
+<!-- RESULTADO -->
+<section class="screen" id="result">
 
-  <h2>Seu resultado está pronto 👇</h2>
+  <h2 id="resTitle"></h2>
+  <p id="resSubtitle"></p>
+  <p id="resText"></p>
 
+  <!-- CAPTURA FINAL -->
   <div class="card">
+
+    <p style="text-align:center;color:#d0ae7e;font-size:1.2rem;">
+      🔒 Seu resultado completo está a um clique
+    </p>
 
     <input class="input" id="name" placeholder="Seu nome">
     <input class="input" id="phone" placeholder="WhatsApp">
 
     <button class="btn" onclick="sendLead()">
-      Ver meu resultado
+      Ver meu resultado completo
     </button>
 
   </div>
-
-</section>
-
-<!-- RESULTADO -->
-<section class="screen" id="result">
-
-  <h2 id="resTitle"></h2>
-  <p id="resText"></p>
 
 </section>
 
@@ -229,9 +227,18 @@ step++;
 if(step<questions.length){
 render();
 }else{
-document.getElementById("quiz").classList.remove("active");
-document.getElementById("lead").classList.add("active");
+finish();
 }
+}
+
+function finish(){
+document.getElementById("quiz").classList.remove("active");
+document.getElementById("result").classList.add("active");
+
+let winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+
+document.getElementById("resTitle").innerText=results[winner].title;
+document.getElementById("resText").innerText=results[winner].text;
 }
 
 function sendLead(){
@@ -253,13 +260,7 @@ body:new URLSearchParams({
 })
 });
 
-let winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
-
-document.getElementById("resTitle").innerText=results[winner].title;
-document.getElementById("resText").innerText=results[winner].text;
-
-document.getElementById("lead").classList.remove("active");
-document.getElementById("result").classList.add("active");
+alert("Enviado com sucesso!");
 
 }
 
