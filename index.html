@@ -1,72 +1,129 @@
-<!-- VERSÃO COMPLETA ORIGINAL + OTIMIZAÇÃO DE CONVERSÃO -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Diagnóstico Exclusivo | Qual ferida do pai está sabotando seu casamento?</title>
+<title>Diagnóstico Exclusivo</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    body{
-      margin:0;
-      font-family:Inter;
-      background:#050713;
-      color:#f5efe9;
-    }
+<style>
 
-    .app{
-      max-width:760px;
-      margin:auto;
-      padding:20px;
-    }
+:root{
+--bg:#f6f7f4;
+--card:#ffffff;
+--gold:#c6a86b;
+--gold-2:#a8894f;
+--text:#1f3d2b;
+--muted:#6b7c6f;
+--line:rgba(0,0,0,.08);
+--shadow:0 20px 50px rgba(0,0,0,.08);
+}
 
-    .screen{display:none;}
-    .active{display:block;}
+*{box-sizing:border-box}
 
-    h1,h2{
-      font-family:"Cormorant Garamond";
-      text-align:center;
-    }
+body{
+margin:0;
+font-family:"Inter",sans-serif;
+background:linear-gradient(180deg,#f8f9f6,#eef1eb);
+color:var(--text);
+}
 
-    .btn{
-      width:100%;
-      padding:18px;
-      border-radius:40px;
-      border:none;
-      background:#d0ae7e;
-      font-weight:800;
-      cursor:pointer;
-    }
+.app{
+max-width:760px;
+margin:auto;
+padding:20px;
+}
 
-    .option{
-      width:100%;
-      padding:18px;
-      margin:12px 0;
-      border-radius:20px;
-      background:#111;
-      border:1px solid #333;
-      color:#fff;
-      cursor:pointer;
-    }
+.screen{display:none}
+.screen.active{display:block}
 
-    .card{
-      background:#0b0d22;
-      padding:20px;
-      border-radius:20px;
-      margin-top:20px;
-    }
+h1,h2{
+font-family:"Cormorant Garamond",serif;
+text-align:center;
+line-height:1.1;
+}
 
-    .input{
-      width:100%;
-      padding:14px;
-      margin:8px 0;
-      border-radius:10px;
-      border:none;
-    }
-  </style>
+h1{
+font-size:42px;
+margin-bottom:16px;
+}
+
+p{
+text-align:center;
+color:var(--muted);
+}
+
+.btn{
+width:100%;
+padding:18px;
+border-radius:999px;
+border:none;
+background:linear-gradient(135deg,var(--gold),var(--gold-2));
+color:#fff;
+font-weight:800;
+font-size:16px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(198,168,107,.3);
+transition:.2s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.option{
+width:100%;
+padding:20px;
+margin:12px 0;
+border-radius:22px;
+background:var(--card);
+border:1px solid var(--line);
+color:var(--text);
+cursor:pointer;
+box-shadow:var(--shadow);
+transition:.2s;
+}
+
+.option:hover{
+transform:translateY(-2px);
+border-color:var(--gold);
+}
+
+.card{
+background:var(--card);
+padding:24px;
+border-radius:26px;
+margin-top:20px;
+box-shadow:var(--shadow);
+border:1px solid var(--line);
+}
+
+.input{
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:14px;
+border:1px solid var(--line);
+font-size:16px;
+}
+
+.highlight{
+color:var(--gold);
+font-style:italic;
+}
+
+.fade{
+animation:fade .4s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
+}
+
+</style>
 </head>
 
 <body>
@@ -74,138 +131,103 @@
 <div class="app">
 
 <!-- INTRO -->
-<section class="screen active" id="intro">
-  <h1>Qual ferida do pai está sabotando seu casamento?</h1>
-  <p style="text-align:center">Responda 7 perguntas e descubra o padrão invisível que afeta sua forma de amar.</p>
-  <button class="btn" onclick="start()">Começar Diagnóstico</button>
+<section class="screen active fade" id="intro">
+<h1>Qual ferida do pai<br><span class="highlight">está sabotando seu casamento?</span></h1>
+<p>Responda algumas perguntas e descubra o padrão invisível que afeta sua forma de amar.</p>
+<button class="btn" onclick="start()">Começar Diagnóstico</button>
 </section>
 
 <!-- QUIZ -->
-<section class="screen" id="quiz">
-  <h2 id="question"></h2>
-  <div id="answers"></div>
+<section class="screen fade" id="quiz">
+<h2 id="question"></h2>
+<div id="answers"></div>
 </section>
 
-<!-- RESULTADO -->
-<section class="screen" id="result">
+<!-- CAPTURA -->
+<section class="screen fade" id="lead">
 
-  <h2 id="resTitle"></h2>
-  <p id="resSubtitle"></p>
-  <p id="resText"></p>
+<h2>Seu diagnóstico está pronto.<br><span class="highlight">Falta só um passo para acessar.</span></h2>
 
-  <!-- CAPTURA FINAL -->
-  <div class="card">
+<div class="card">
 
-    <p style="text-align:center;color:#d0ae7e;font-size:1.2rem;">
-      🔒 Seu resultado completo está a um clique
-    </p>
+<input class="input" id="name" placeholder="Seu nome">
+<input class="input" id="phone" placeholder="WhatsApp">
 
-    <input class="input" id="name" placeholder="Seu nome">
-    <input class="input" id="phone" placeholder="WhatsApp">
+<button class="btn" onclick="sendLead()">
+Ver meu diagnóstico
+</button>
 
-    <button class="btn" onclick="sendLead()">
-      Ver meu resultado completo
-    </button>
+</div>
 
-  </div>
+</section>
 
+<!-- RESULT -->
+<section class="screen fade" id="result">
+<h2 id="resTitle"></h2>
+<p id="resText"></p>
 </section>
 
 </div>
 
 <script>
 
-const questions = [
-{
-q:"Quando seu marido tenta te elogiar...",
-a:[
+const questions=[
+{q:"Quando seu marido te elogia?",a:[
 ["Fico desconfortável","frio"],
 ["Desconfio","ausente"],
 ["Não mereço","condicional"],
 ["Me irrito","explosivo"]
-]
-},
-{
-q:"Quando brigam...",
-a:[
+]},
+{q:"Quando brigam?",a:[
 ["Me calo","frio"],
 ["Quero ir embora","ausente"],
 ["Resolvo tudo","condicional"],
 ["Explodo","explosivo"]
-]
-},
-{
-q:"Como era seu pai?",
-a:[
+]},
+{q:"Como era seu pai?",a:[
 ["Frio","frio"],
 ["Ausente","ausente"],
 ["Condicional","condicional"],
 ["Explosivo","explosivo"]
-]
-},
-{
-q:"Que tipo de homem te atrai?",
-a:[
+]},
+{q:"Que tipo de homem te atrai?",a:[
 ["Reservado","frio"],
 ["Independente","ausente"],
 ["Precisa de mim","condicional"],
 ["Intenso","explosivo"]
-]
-},
-{
-q:"Quando está insegura...",
-a:[
+]},
+{q:"Quando está insegura?",a:[
 ["Engulo","frio"],
 ["Me afasto","ausente"],
-["Me esforço mais","condicional"],
-["Testo ele","explosivo"]
-]
-},
-{
-q:"No fundo você sente que...",
-a:[
+["Me esforço","condicional"],
+["Testo","explosivo"]
+]},
+{q:"No fundo você sente que...",a:[
 ["Preciso ser forte","frio"],
 ["Vou me machucar","ausente"],
 ["Preciso agradar","condicional"],
 ["Preciso de provas","explosivo"]
-]
-},
-{
-q:"Se ele fosse mais carinhoso...",
-a:[
-["Ficaria sem jeito","frio"],
-["Desconfiaria","ausente"],
+]},
+{q:"Se ele fosse mais carinhoso...",a:[
+["Sem jeito","frio"],
+["Desconfio","ausente"],
 ["Aliviada","condicional"],
 ["Ansiosa","explosivo"]
-]
-}
+]}
 ];
 
-const results = {
-frio:{
-title:"A Filha do Pai Frio",
-text:"Você não aprendeu a receber amor."
-},
-ausente:{
-title:"A Filha do Pai Ausente",
-text:"Você teme abandono."
-},
-condicional:{
-title:"A Filha do Pai Condicional",
-text:"Você acha que precisa merecer amor."
-},
-explosivo:{
-title:"A Filha do Pai Explosivo",
-text:"Você vive em alerta emocional."
-}
+const results={
+frio:{title:"A Filha do Pai Frio",text:"Você não aprendeu a receber amor."},
+ausente:{title:"A Filha do Pai Ausente",text:"Você teme abandono."},
+condicional:{title:"A Filha do Pai Condicional",text:"Você acredita que precisa merecer amor."},
+explosivo:{title:"A Filha do Pai Explosivo",text:"Você vive em alerta emocional."}
 };
 
 let step=0;
 let score={frio:0,ausente:0,condicional:0,explosivo:0};
 
 function start(){
-document.getElementById("intro").classList.remove("active");
-document.getElementById("quiz").classList.add("active");
+switchScreen("intro","quiz");
 render();
 }
 
@@ -227,18 +249,8 @@ step++;
 if(step<questions.length){
 render();
 }else{
-finish();
+switchScreen("quiz","lead");
 }
-}
-
-function finish(){
-document.getElementById("quiz").classList.remove("active");
-document.getElementById("result").classList.add("active");
-
-let winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
-
-document.getElementById("resTitle").innerText=results[winner].title;
-document.getElementById("resText").innerText=results[winner].text;
 }
 
 function sendLead(){
@@ -260,8 +272,18 @@ body:new URLSearchParams({
 })
 });
 
-alert("Enviado com sucesso!");
+let winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
 
+document.getElementById("resTitle").innerText=results[winner].title;
+document.getElementById("resText").innerText=results[winner].text;
+
+switchScreen("lead","result");
+
+}
+
+function switchScreen(from,to){
+document.getElementById(from).classList.remove("active");
+document.getElementById(to).classList.add("active");
 }
 
 </script>
