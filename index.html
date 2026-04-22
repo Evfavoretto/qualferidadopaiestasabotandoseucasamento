@@ -1,117 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Diagnóstico Exclusivo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
 :root{
   --bg:#061a12;
-  --bg-2:#08241a;
-  --card:#0c2f23;
-  --card-2:rgba(12,47,35,.75);
-
+  --card:#0b2a1f;
   --gold:#d4af37;
-  --gold-2:#b8962e;
-  --gold-light:#f3d98b;
-
-  --text:#ffffff;
-  --muted:#cbd5e1;
-
-  --line:rgba(212,175,55,.15);
-  --line-strong:rgba(212,175,55,.35);
+  --gold2:#b8962e;
+  --text:#fff;
 }
 
-/* FUNDO CINEMATOGRÁFICO */
 body{
   margin:0;
-  font-family:"Inter",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 15% 20%, rgba(212,175,55,.12), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(212,175,55,.08), transparent 25%),
-    radial-gradient(circle at 50% 85%, rgba(212,175,55,.08), transparent 25%),
-    linear-gradient(180deg, #03110c 0%, #061a12 50%, #020b08 100%);
-}
-
-/* CARDS COM GLASS */
-.lead-card,
-.result-card{
-  background:var(--card-2);
-  border:1px solid var(--line);
-  backdrop-filter:blur(10px);
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
-}
-
-/* BOTÃO LUXO */
-.btn{
-  background:linear-gradient(135deg, #d4af37, #b8962e);
-  color:#1a1405;
-  border:none;
-  border-radius:40px;
-  padding:16px;
-  font-weight:800;
-  width:100%;
-  position:relative;
-  overflow:hidden;
-  box-shadow:
-    0 10px 30px rgba(212,175,55,.25),
-    inset 0 0 10px rgba(255,255,255,.15);
-  transition:all .25s ease;
-}
-
-/* brilho animado */
-.btn::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
-  transition:.6s;
-}
-
-.btn:hover::after{
-  left:100%;
-}
-
-.btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  box-shadow:0 15px 40px rgba(212,175,55,.35);
-}
-
-/* OPÇÕES PREMIUM */
-.option{
-  background:rgba(12,47,35,.9);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:12px;
-  cursor:pointer;
-  transition:all .2s ease;
-}
-
-/* efeito hover */
-.option:hover{
-  transform:translateY(-2px);
-  border-color:var(--line-strong);
-  background:rgba(16,60,45,.95);
-}
-
-/* efeito clique */
-.option:active{
-  transform:scale(.98);
-}
-
-/* INPUT */
-.input{
-  background:#08241a;
-  border:1px solid var(--line);
+  font-family:Inter,sans-serif;
+  background:linear-gradient(180deg,#04150f,#061a12);
   color:#fff;
 }
 
-/* TRANSIÇÃO ENTRE TELAS */
-.screen{
-  opacity:0;
-  transform:translateY(20px);
-  transition:all .4s ease;
+.app{max-width:700px;margin:auto;padding:20px}
+
+.screen{display:none;opacity:0;transform:translateX(40px);transition:.4s}
+.screen.active{display:block;opacity:1;transform:translateX(0)}
+
+h1,h2{font-family:"Cormorant Garamond",serif}
+
+.input{
+  width:100%;
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:14px;
+  background:#08241a;
+  border:1px solid rgba(212,175,55,.2);
+  color:#fff;
 }
 
-.screen.active{
-  opacity:1;
-  transform:translateY(0);
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#04150f;
+  font-weight:800;
+  cursor:pointer;
 }
+
+.option{
+  background:#0b2a1f;
+  padding:16px;
+  margin-bottom:10px;
+  border-radius:16px;
+  border:1px solid rgba(212,175,55,.2);
+  cursor:pointer;
+}
+
+.bar{height:6px;background:#222;border-radius:10px;overflow:hidden;margin-bottom:20px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0%;transition:.3s}
+
+.card{background:#0b2a1f;padding:20px;border-radius:20px;margin-top:20px}
+
+.whatsapp{background:#25D366;color:#fff;margin-top:10px}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="bar"><div id="progress"></div></div>
+
+<div class="screen active" id="intro">
+<h1>Qual ferida do pai está sabotando seu casamento?</h1>
+<input id="nome" class="input" placeholder="Seu nome">
+<input id="zap" class="input" placeholder="WhatsApp">
+<button class="btn" onclick="start()">Começar</button>
+</div>
+
+<div class="screen" id="quiz">
+<h2 id="pergunta"></h2>
+<div id="respostas"></div>
+</div>
+
+<div class="screen" id="result">
+<h2 id="titulo"></h2>
+<div class="card" id="texto"></div>
+
+<button class="btn whatsapp" onclick="irWhats()">Falar no WhatsApp</button>
+<button class="btn" onclick="oferta()">Quero transformar meu casamento</button>
+</div>
+
+<div class="screen" id="oferta">
+<h2>Você não precisa continuar assim</h2>
+<div class="card">
+<p>Existe um caminho para curar essa ferida e transformar seu casamento.</p>
+</div>
+<button class="btn whatsapp" onclick="irWhats()">Falar no WhatsApp</button>
+</div>
+
+</div>
+
+<script>
+
+const perguntas=[
+{
+t:"Quando seu marido tenta te elogiar ou demonstrar carinho?",
+o:[
+{t:"Fico desconfortável",p:{frio:3,ausente:1}},
+{t:"Desconfio",p:{frio:1,ausente:2,explosivo:1}},
+{t:"Não me sinto merecedora",p:{condicional:3}},
+{t:"Fico irritada",p:{explosivo:3}}
+]},
+{
+t:"Quando brigam?",
+o:[
+{t:"Me calo",p:{frio:3}},
+{t:"Quero ir embora",p:{ausente:3}},
+{t:"Tento resolver tudo",p:{condicional:3}},
+{t:"Explodo",p:{explosivo:3}}
+]},
+{
+t:"Como era seu pai?",
+o:[
+{t:"Frio",p:{frio:4}},
+{t:"Ausente",p:{ausente:4}},
+{t:"Condicional",p:{condicional:4}},
+{t:"Explosivo",p:{explosivo:4}}
+]},
+{
+t:"Que tipo de homem te atrai?",
+o:[
+{t:"Reservado",p:{frio:3}},
+{t:"Independente",p:{ausente:3}},
+{t:"Precisa de mim",p:{condicional:3}},
+{t:"Intenso",p:{explosivo:3}}
+]},
+{
+t:"Quando insegura você...",
+o:[
+{t:"Engole",p:{frio:3}},
+{t:"Se afasta",p:{ausente:3}},
+{t:"Se esforça mais",p:{condicional:3}},
+{t:"Testa",p:{explosivo:3}}
+]},
+{
+t:"No fundo você sente...",
+o:[
+{t:"Preciso ser forte",p:{frio:3}},
+{t:"Vou me machucar",p:{ausente:3}},
+{t:"Só sou amada se servir",p:{condicional:4}},
+{t:"Preciso de provas",p:{explosivo:3}}
+]},
+{
+t:"Se ele mudar de repente...",
+o:[
+{t:"Não sei reagir",p:{frio:3}},
+{t:"Desconfio",p:{ausente:2}},
+{t:"Alívio",p:{condicional:3}},
+{t:"Ansiedade",p:{explosivo:3}}
+]}
+];
+
+let atual=0;
+let respostas={frio:0,ausente:0,condicional:0,explosivo:0};
+let resultadoFinal="";
+
+function troca(t){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(t).classList.add("active");
+}
+
+function start(){troca("quiz");render();}
+
+function render(){
+let q=perguntas[atual];
+document.getElementById("pergunta").innerText=q.t;
+
+let box=document.getElementById("respostas");
+box.innerHTML="";
+
+q.o.forEach(op=>{
+let d=document.createElement("div");
+d.className="option";
+d.innerText=op.t;
+d.onclick=()=>select(op.p);
+box.appendChild(d);
+});
+
+document.getElementById("progress").style.width=((atual/perguntas.length)*100)+"%";
+}
+
+function select(p){
+for(let k in p){respostas[k]+=p[k];}
+atual++;
+
+if(atual<perguntas.length){render();}
+else{resultado();}
+}
+
+function resultado(){
+let maior="frio";
+for(let k in respostas){if(respostas[k]>respostas[maior])maior=k;}
+
+resultadoFinal=maior;
+
+troca("result");
+
+document.getElementById("titulo").innerText=maior.toUpperCase();
+document.getElementById("texto").innerText="Esse padrão está influenciando seu casamento.";
+}
+
+function irWhats(){
+let nome=document.getElementById("nome").value;
+let msg=`Oi, sou ${nome}. Meu resultado foi: ${resultadoFinal}`;
+window.open("https://wa.me/SEUNUMERO?text="+encodeURIComponent(msg));
+}
+
+function oferta(){troca("oferta");}
+
+</script>
+
+</body>
+</html>
