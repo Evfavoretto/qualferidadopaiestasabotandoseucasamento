@@ -1,279 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Diagnóstico Exclusivo</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-<style>
 :root{
   --bg:#061a12;
-  --bg-2:#0b2a1f;
-  --card:#0e3326;
-  --card-2:rgba(14,51,38,.9);
+  --bg-2:#08241a;
+  --card:#0c2f23;
+  --card-2:rgba(12,47,35,.88);
 
   --gold:#d4af37;
   --gold-2:#b8962e;
+  --gold-3:#f2d675;
 
   --text:#ffffff;
   --muted:#d1d5db;
+  --muted-2:#9ca3af;
 
-  --line:rgba(212,175,55,.2);
+  --line:rgba(212,175,55,.18);
+  --line-2:rgba(212,175,55,.35);
+
+  --shadow:0 22px 60px rgba(0,0,0,.45);
 }
 
-*{box-sizing:border-box}
-
+/* FUNDO PREMIUM VERDE */
 body{
   margin:0;
-  font-family:Inter;
+  min-height:100vh;
+  font-family:"Inter",system-ui;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(212,175,55,.08), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(212,175,55,.06), transparent 20%),
+    radial-gradient(circle at 50% 80%, rgba(212,175,55,.06), transparent 20%),
+    linear-gradient(180deg, #04150f 0%, #061a12 50%, #04150f 100%);
   color:var(--text);
-  background:linear-gradient(180deg,#04150f,#061a12);
 }
 
-/* container */
-.app{
-  max-width:600px;
-  margin:auto;
-  padding:20px;
-}
-
-/* telas */
-.screen{display:none}
-.screen.active{display:block}
-
-/* títulos */
-h1,h2,h3{
-  font-family:"Cormorant Garamond";
-}
-
-/* botão */
-.btn{
-  background:var(--gold);
-  color:#000;
-  padding:16px;
-  border:none;
-  border-radius:40px;
-  width:100%;
-  font-weight:800;
-  margin-top:15px;
-}
-
-/* opções */
-.option{
-  background:var(--card);
-  border:1px solid var(--line);
-  padding:15px;
-  border-radius:16px;
-  margin-bottom:10px;
-  cursor:pointer;
-}
-
-/* campos */
-.input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:#08241a;
-  color:#fff;
-  margin-bottom:10px;
-}
-
-/* resultado */
+/* CARDS */
+.lead-card,
 .result-card{
-  background:var(--card);
-  padding:15px;
-  border-radius:16px;
-  margin-bottom:10px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-<!-- INTRO -->
-<div id="intro" class="screen active">
-<h1>Qual ferida do pai está sabotando seu casamento?</h1>
-
-<input id="nome" class="input" placeholder="Seu nome">
-<input id="whatsapp" class="input" placeholder="WhatsApp">
-
-<button class="btn" onclick="start()">Começar</button>
-</div>
-
-<!-- QUIZ -->
-<div id="quiz" class="screen">
-<h2 id="pergunta"></h2>
-<div id="respostas"></div>
-</div>
-
-<!-- RESULTADO -->
-<div id="resultado" class="screen">
-<h1 id="titulo"></h1>
-<h3 id="subtitulo"></h3>
-
-<div class="result-card" id="origem"></div>
-<div class="result-card" id="padrao"></div>
-<div class="result-card" id="impacto"></div>
-
-<p id="frase"></p>
-</div>
-
-</div>
-
-<script>
-const FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLScRK4CW6F7nm7mfoJNlpMa_S7pCw5Q5K4tvjO1OV0tqTJNItw/formResponse";
-
-const FIELDS={
-nome:"entry.282931895",
-whatsapp:"entry.1799475566",
-resultado:"entry.2129250980",
-subtitulo:"entry.375136606",
-respostas:"entry.1276612145",
-pontuacoes:"entry.712224340",
-resumo:"entry.225565478"
-};
-
-let perguntas=[
-{
-t:"Quando seu marido demonstra carinho...",
-o:[
-{t:"Fico desconfortável",s:{frio:3}},
-{t:"Desconfio",s:{ausente:3}},
-{t:"Não me sinto merecedora",s:{condicional:3}},
-{t:"Fico irritada",s:{explosivo:3}}
-]
-},
-{
-t:"Quando brigam...",
-o:[
-{t:"Me calo",s:{frio:3}},
-{t:"Quero ir embora",s:{ausente:3}},
-{t:"Faço tudo pra resolver",s:{condicional:3}},
-{t:"Explodo",s:{explosivo:3}}
-]
-}
-];
-
-let resultados={
-frio:{
-t:"Filha do Pai Frio",
-s:"Você não aprendeu a receber amor",
-o:"Seu pai era frio emocionalmente.",
-p:"Você se fecha no casamento.",
-i:"Seu marido sente distância.",
-f:"Você precisa aprender a receber."
-},
-ausente:{
-t:"Filha do Pai Ausente",
-s:"Medo de abandono",
-o:"Seu pai não estava presente.",
-p:"Você se afasta antes de se apegar.",
-i:"Dificuldade de confiar.",
-f:"É possível confiar novamente."
-},
-condicional:{
-t:"Filha do Pai Condicional",
-s:"Amor depende do que você faz",
-o:"Você precisava agradar.",
-p:"Você se esforça demais.",
-i:"Cansaço emocional.",
-f:"Você já é suficiente."
-},
-explosivo:{
-t:"Filha do Pai Explosivo",
-s:"Amor com tensão",
-o:"Ambiente instável.",
-p:"Você vive em alerta.",
-i:"Relação desgastante.",
-f:"É possível viver em paz."
-}
-};
-
-let atual=0;
-let respostas=[];
-
-function start(){
-document.getElementById("intro").classList.remove("active");
-document.getElementById("quiz").classList.add("active");
-render();
+  background:var(--card-2);
+  border:1px solid var(--line);
 }
 
-function render(){
-let q=perguntas[atual];
-document.getElementById("pergunta").innerText=q.t;
-
-let box=document.getElementById("respostas");
-box.innerHTML="";
-
-q.o.forEach(op=>{
-let div=document.createElement("div");
-div.className="option";
-div.innerText=op.t;
-div.onclick=()=>select(op);
-box.appendChild(div);
-});
+/* BOTÃO DOURADO PREMIUM */
+.btn{
+  background:linear-gradient(135deg, #d4af37, #b8962e);
+  color:#1a1405;
+  box-shadow:0 10px 30px rgba(212,175,55,.25);
 }
 
-function select(op){
-respostas.push(op);
-atual++;
-
-if(atual<perguntas.length){
-render();
-}else{
-finalizar();
-}
+.btn:hover{
+  filter:brightness(1.08);
 }
 
-function finalizar(){
-let total={frio:0,ausente:0,condicional:0,explosivo:0};
-
-respostas.forEach(r=>{
-for(let k in r.s){
-total[k]+=r.s[k];
-}
-});
-
-let vencedor="frio";
-for(let k in total){
-if(total[k]>total[vencedor])vencedor=k;
+/* BOTÃO SECUNDÁRIO */
+.btn.secondary{
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--line-2);
 }
 
-let r=resultados[vencedor];
-
-document.getElementById("quiz").classList.remove("active");
-document.getElementById("resultado").classList.add("active");
-
-document.getElementById("titulo").innerText=r.t;
-document.getElementById("subtitulo").innerText=r.s;
-document.getElementById("origem").innerText=r.o;
-document.getElementById("padrao").innerText=r.p;
-document.getElementById("impacto").innerText=r.i;
-document.getElementById("frase").innerText=r.f;
-
-enviar(r,total);
+/* OPÇÕES */
+.option{
+  background:rgba(12,47,35,.95);
+  border:1px solid var(--line);
 }
 
-function enviar(r,total){
-let data=new FormData();
-
-data.append(FIELDS.nome,document.getElementById("nome").value);
-data.append(FIELDS.whatsapp,document.getElementById("whatsapp").value);
-data.append(FIELDS.resultado,r.t);
-data.append(FIELDS.subtitulo,r.s);
-data.append(FIELDS.respostas,JSON.stringify(respostas));
-data.append(FIELDS.pontuacoes,JSON.stringify(total));
-data.append(FIELDS.resumo,r.t);
-
-fetch(FORM_URL,{method:"POST",mode:"no-cors",body:data});
+.option:hover{
+  border-color:var(--line-2);
+  background:rgba(14,60,45,.95);
 }
-</script>
 
-</body>
-</html>
+/* INPUT */
+.input{
+  background:#08241a;
+  border:1px solid var(--line);
+  color:#fff;
+}
