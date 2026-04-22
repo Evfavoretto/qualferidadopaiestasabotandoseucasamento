@@ -2,69 +2,99 @@
   --bg:#061a12;
   --bg-2:#08241a;
   --card:#0c2f23;
-  --card-2:rgba(12,47,35,.88);
+  --card-2:rgba(12,47,35,.75);
 
   --gold:#d4af37;
   --gold-2:#b8962e;
-  --gold-3:#f2d675;
+  --gold-light:#f3d98b;
 
   --text:#ffffff;
-  --muted:#d1d5db;
-  --muted-2:#9ca3af;
+  --muted:#cbd5e1;
 
-  --line:rgba(212,175,55,.18);
-  --line-2:rgba(212,175,55,.35);
-
-  --shadow:0 22px 60px rgba(0,0,0,.45);
+  --line:rgba(212,175,55,.15);
+  --line-strong:rgba(212,175,55,.35);
 }
 
-/* FUNDO PREMIUM VERDE */
+/* FUNDO CINEMATOGRÁFICO */
 body{
   margin:0;
-  min-height:100vh;
-  font-family:"Inter",system-ui;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(212,175,55,.08), transparent 25%),
-    radial-gradient(circle at 80% 30%, rgba(212,175,55,.06), transparent 20%),
-    radial-gradient(circle at 50% 80%, rgba(212,175,55,.06), transparent 20%),
-    linear-gradient(180deg, #04150f 0%, #061a12 50%, #04150f 100%);
+  font-family:"Inter",sans-serif;
   color:var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(212,175,55,.12), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(212,175,55,.08), transparent 25%),
+    radial-gradient(circle at 50% 85%, rgba(212,175,55,.08), transparent 25%),
+    linear-gradient(180deg, #03110c 0%, #061a12 50%, #020b08 100%);
 }
 
-/* CARDS */
+/* CARDS COM GLASS */
 .lead-card,
 .result-card{
   background:var(--card-2);
   border:1px solid var(--line);
+  backdrop-filter:blur(10px);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
 }
 
-/* BOTÃO DOURADO PREMIUM */
+/* BOTÃO LUXO */
 .btn{
   background:linear-gradient(135deg, #d4af37, #b8962e);
   color:#1a1405;
-  box-shadow:0 10px 30px rgba(212,175,55,.25);
+  border:none;
+  border-radius:40px;
+  padding:16px;
+  font-weight:800;
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  box-shadow:
+    0 10px 30px rgba(212,175,55,.25),
+    inset 0 0 10px rgba(255,255,255,.15);
+  transition:all .25s ease;
+}
+
+/* brilho animado */
+.btn::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+  transition:.6s;
+}
+
+.btn:hover::after{
+  left:100%;
 }
 
 .btn:hover{
-  filter:brightness(1.08);
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 15px 40px rgba(212,175,55,.35);
 }
 
-/* BOTÃO SECUNDÁRIO */
-.btn.secondary{
-  background:transparent;
-  color:var(--gold);
-  border:1px solid var(--line-2);
-}
-
-/* OPÇÕES */
+/* OPÇÕES PREMIUM */
 .option{
-  background:rgba(12,47,35,.95);
+  background:rgba(12,47,35,.9);
   border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:all .2s ease;
 }
 
+/* efeito hover */
 .option:hover{
-  border-color:var(--line-2);
-  background:rgba(14,60,45,.95);
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+  background:rgba(16,60,45,.95);
+}
+
+/* efeito clique */
+.option:active{
+  transform:scale(.98);
 }
 
 /* INPUT */
@@ -72,4 +102,16 @@ body{
   background:#08241a;
   border:1px solid var(--line);
   color:#fff;
+}
+
+/* TRANSIÇÃO ENTRE TELAS */
+.screen{
+  opacity:0;
+  transform:translateY(20px);
+  transition:all .4s ease;
+}
+
+.screen.active{
+  opacity:1;
+  transform:translateY(0);
 }
