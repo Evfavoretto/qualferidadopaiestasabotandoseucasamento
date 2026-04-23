@@ -35,6 +35,9 @@
       --line:rgba(208,174,126,.16);
       --line-2:rgba(208,174,126,.30);
       --shadow:0 22px 60px rgba(0,0,0,.45);
+      --radius-xl:32px;
+      --radius-lg:26px;
+      --radius-md:20px;
       --container:760px;
     }
 
@@ -148,8 +151,7 @@
     .result-subtitle,
     .card-title,
     .quote-text,
-    .offer-headline,
-    .countdown-time{
+    .offer-headline{
       font-family:"Cormorant Garamond", Georgia, serif;
       letter-spacing:-.02em;
       line-height:1;
@@ -200,8 +202,7 @@
     }
 
     .lead-card,
-    .result-card,
-    .countdown-card{
+    .result-card{
       background:var(--card-2);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
@@ -466,54 +467,12 @@
       font-style:italic;
     }
 
-    .countdown-card{
-      border-radius:28px;
-      padding:20px 18px;
-      text-align:center;
-      margin:10px 0 18px;
-      background:
-        linear-gradient(180deg, rgba(216,91,91,.12), rgba(11,13,34,.88)),
-        var(--card-2);
-      border:1px solid rgba(216,91,91,.22);
-    }
-
-    .countdown-label{
-      margin:0 0 10px;
-      color:#f4cfcf;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:.78rem;
-      font-weight:800;
-    }
-
-    .countdown-time{
-      font-size:clamp(2.2rem, 10vw, 4rem);
-      color:#fff3f3;
-      line-height:1;
-      margin-bottom:10px;
-      font-weight:700;
-    }
-
-    .countdown-note{
-      margin:0;
-      color:#efd7d7;
-      font-size:clamp(.98rem, 3.6vw, 1.08rem);
-      line-height:1.6;
-    }
-
     .offer-headline{
       font-size:clamp(2.2rem, 8vw, 3.6rem);
       font-weight:600;
       color:var(--text);
       line-height:1.08;
       margin-bottom:12px;
-    }
-
-    .offer-subheadline{
-      color:#efe4d9;
-      font-size:clamp(1.06rem, 4vw, 1.28rem);
-      line-height:1.74;
-      margin:0;
     }
 
     .authority-photo{
@@ -525,19 +484,19 @@
       box-shadow:0 10px 30px rgba(0,0,0,.25);
     }
 
-    .testimonial-placeholder{
+    .depo-grid{
       display:grid;
-      gap:12px;
+      gap:14px;
       margin-top:16px;
     }
 
-    .testimonial-item{
-      padding:14px 16px;
+    .depo-grid img{
+      width:100%;
+      display:block;
       border-radius:18px;
       border:1px solid rgba(208,174,126,.12);
-      background:rgba(255,255,255,.02);
-      color:#efe4d9;
-      line-height:1.7;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      background:#fff;
     }
 
     .status{
@@ -602,8 +561,7 @@
       }
 
       .lead-card,
-      .result-card,
-      .countdown-card{
+      .result-card{
         border-radius:30px;
       }
 
@@ -611,8 +569,7 @@
         padding:20px;
       }
 
-      .result-card,
-      .countdown-card{
+      .result-card{
         padding:24px 22px;
       }
     }
@@ -717,14 +674,6 @@
         </p>
       </div>
 
-      <div class="countdown-card" aria-live="polite">
-        <p class="countdown-label">Condição disponível por tempo limitado</p>
-        <div class="countdown-time" id="countdownTimer">15:00</div>
-        <p class="countdown-note">
-          Seu acesso ao upgrade está liberado agora. Esta condição pode sair do ar quando o tempo terminar.
-        </p>
-      </div>
-
       <div class="result-cards">
         <article class="result-card">
           <h3 class="offer-headline">
@@ -746,17 +695,32 @@
             Pare de repetir no relacionamento atual dores que começaram com o pai.
           </p>
         </article>
+      </div>
 
+      <div class="result-actions">
+        <a
+          class="btn secondary"
+          href="https://wa.me/5549998110445?text=Quero%20meu%20mapa%20de%20cura"
+          target="_blank"
+          rel="noopener"
+        >
+          Quero meu mapa de cura no WhatsApp
+        </a>
+      </div>
+
+      <div class="result-cards">
         <article class="result-card">
           <h3 class="card-title">Depoimentos</h3>
           <p>
-            Aqui você pode adicionar relatos reais de homens e mulheres que conseguiram interromper ciclos de dor, restaurar vínculos e enxergar com mais clareza a raiz dos padrões que viviam.
+            Relatos reais de pessoas que já passaram pelo processo e conseguiram quebrar padrões, ganhar clareza e transformar suas relações.
           </p>
 
-          <div class="testimonial-placeholder">
-            <div class="testimonial-item">Depoimento 1</div>
-            <div class="testimonial-item">Depoimento 2</div>
-            <div class="testimonial-item">Depoimento 3</div>
+          <div class="depo-grid">
+            <img src="depo1.jpg" alt="Depoimento de cliente sobre o mapa de cura">
+            <img src="depo2.jpg" alt="Depoimento de cliente sobre o mapa de cura">
+            <img src="depo3.jpg" alt="Depoimento de cliente sobre o mapa de cura">
+            <img src="depo4.jpg" alt="Depoimento de cliente sobre o mapa de cura">
+            <img src="depo5.jpg" alt="Depoimento de cliente sobre o mapa de cura">
           </div>
         </article>
 
@@ -1034,7 +998,6 @@
     const startBtn = document.getElementById("startBtn");
     const backBtn = document.getElementById("backBtn");
     const showResultBtn = document.getElementById("showResultBtn");
-    const countdownTimer = document.getElementById("countdownTimer");
 
     const leadName = document.getElementById("leadName");
     const leadWhatsapp = document.getElementById("leadWhatsapp");
@@ -1054,8 +1017,6 @@
     let currentQuestion = 0;
     let answers = [];
     let alreadySubmitted = false;
-    let countdownInterval = null;
-    const COUNTDOWN_STORAGE_KEY = "diagnostico_upgrade_deadline";
 
     function showScreen(screen){
       [introScreen, quizScreen, leadScreen, resultScreen].forEach(s => s.classList.remove("active"));
@@ -1075,9 +1036,7 @@
         return;
       }
 
-      if (leadScreen.classList.contains("active") || resultScreen.classList.contains("active")) {
-        progressBar.style.width = "100%";
-      }
+      progressBar.style.width = "100%";
     }
 
     function normalizePhone(value){
@@ -1232,42 +1191,6 @@
       }
     }
 
-    function formatRemainingTime(ms){
-      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-      const seconds = String(totalSeconds % 60).padStart(2, "0");
-      return `${minutes}:${seconds}`;
-    }
-
-    function startCountdown(){
-      const now = Date.now();
-      let deadline = Number(localStorage.getItem(COUNTDOWN_STORAGE_KEY));
-
-      if (!deadline || deadline <= now) {
-        deadline = now + (15 * 60 * 1000);
-        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(deadline));
-      }
-
-      if (countdownInterval) {
-        clearInterval(countdownInterval);
-      }
-
-      function updateCountdown(){
-        const remaining = deadline - Date.now();
-
-        if (remaining <= 0) {
-          countdownTimer.textContent = "00:00";
-          clearInterval(countdownInterval);
-          return;
-        }
-
-        countdownTimer.textContent = formatRemainingTime(remaining);
-      }
-
-      updateCountdown();
-      countdownInterval = setInterval(updateCountdown, 1000);
-    }
-
     function showResult(){
       const totals = getTotals();
       const winnerKey = getWinner(totals);
@@ -1289,7 +1212,6 @@
 
       showScreen(resultScreen);
       updateProgress();
-      startCountdown();
       sendToGoogleForms(result, totals);
     }
 
