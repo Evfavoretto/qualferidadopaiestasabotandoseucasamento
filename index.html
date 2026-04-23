@@ -35,9 +35,6 @@
       --line:rgba(208,174,126,.16);
       --line-2:rgba(208,174,126,.30);
       --shadow:0 22px 60px rgba(0,0,0,.45);
-      --radius-xl:32px;
-      --radius-lg:26px;
-      --radius-md:20px;
       --container:760px;
     }
 
@@ -150,7 +147,9 @@
     .result-title,
     .result-subtitle,
     .card-title,
-    .quote-text{
+    .quote-text,
+    .offer-headline,
+    .countdown-time{
       font-family:"Cormorant Garamond", Georgia, serif;
       letter-spacing:-.02em;
       line-height:1;
@@ -201,7 +200,8 @@
     }
 
     .lead-card,
-    .result-card{
+    .result-card,
+    .countdown-card{
       background:var(--card-2);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
@@ -282,6 +282,11 @@
       cursor:pointer;
       box-shadow:0 14px 34px rgba(208,174,126,.22);
       transition:transform .18s ease, filter .18s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
     }
 
     .btn:hover{
@@ -294,6 +299,12 @@
       color:var(--gold);
       border:1px solid rgba(208,174,126,.24);
       box-shadow:none;
+    }
+
+    .btn.upgrade-btn{
+      width:100%;
+      max-width:560px;
+      margin:0 auto;
     }
 
     .btn:focus-visible,
@@ -429,18 +440,80 @@
       line-height:1.72;
     }
 
+    .result-card ul{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#efe4d9;
+      font-size:clamp(1rem, 3.8vw, 1.2rem);
+      line-height:1.7;
+    }
+
+    .result-card li{
+      margin-bottom:10px;
+    }
+
     .quote-box{
       text-align:center;
       padding:6px 8px 18px;
-      max-width:680px;
+      max-width:760px;
       margin:0 auto;
     }
 
     .quote-text{
       color:var(--gold);
-      font-size:clamp(1.9rem, 6.4vw, 2.9rem);
-      line-height:1.16;
+      font-size:clamp(2rem, 6.6vw, 3.4rem);
+      line-height:1.18;
       font-style:italic;
+    }
+
+    .countdown-card{
+      border-radius:28px;
+      padding:20px 18px;
+      text-align:center;
+      margin:10px 0 18px;
+      background:
+        linear-gradient(180deg, rgba(216,91,91,.12), rgba(11,13,34,.88)),
+        var(--card-2);
+      border:1px solid rgba(216,91,91,.22);
+    }
+
+    .countdown-label{
+      margin:0 0 10px;
+      color:#f4cfcf;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    .countdown-time{
+      font-size:clamp(2.2rem, 10vw, 4rem);
+      color:#fff3f3;
+      line-height:1;
+      margin-bottom:10px;
+      font-weight:700;
+    }
+
+    .countdown-note{
+      margin:0;
+      color:#efd7d7;
+      font-size:clamp(.98rem, 3.6vw, 1.08rem);
+      line-height:1.6;
+    }
+
+    .offer-headline{
+      font-size:clamp(2.2rem, 8vw, 3.6rem);
+      font-weight:600;
+      color:var(--text);
+      line-height:1.08;
+      margin-bottom:12px;
+    }
+
+    .offer-subheadline{
+      color:#efe4d9;
+      font-size:clamp(1.06rem, 4vw, 1.28rem);
+      line-height:1.74;
+      margin:0;
     }
 
     .status{
@@ -505,7 +578,8 @@
       }
 
       .lead-card,
-      .result-card{
+      .result-card,
+      .countdown-card{
         border-radius:30px;
       }
 
@@ -513,7 +587,8 @@
         padding:20px;
       }
 
-      .result-card{
+      .result-card,
+      .countdown-card{
         padding:24px 22px;
       }
     }
@@ -613,20 +688,92 @@
       </div>
 
       <div class="quote-box">
-        <p class="quote-text" id="resultQuote"></p>
+        <p class="quote-text" id="resultQuote">
+          Você quer curar a origem emocional, espiritual e cármica desse padrão que se repete no casamento?
+        </p>
+      </div>
+
+      <div class="countdown-card" aria-live="polite">
+        <p class="countdown-label">Condição disponível por tempo limitado</p>
+        <div class="countdown-time" id="countdownTimer">15:00</div>
+        <p class="countdown-note">
+          Seu acesso ao upgrade está liberado agora. Esta condição pode sair do ar quando o tempo terminar.
+        </p>
+      </div>
+
+      <div class="result-cards">
+        <article class="result-card">
+          <h3 class="offer-headline">
+            Você viu o impacto da ferida com o pai no seu relacionamento.
+          </h3>
+          <p class="offer-subheadline">
+            Agora é hora de entender a raiz completa do padrão.
+          </p>
+        </article>
+
+        <article class="result-card">
+          <p>
+            Existe uma camada mais profunda por trás das dores que se repetem no amor, na vida financeira, na saúde e nos ciclos de fracasso.
+            O <strong>Mapa da Relação Cármica Espiritual e Emocional</strong> foi criado para revelar de onde esse padrão vem, por que ele continua se repetindo e qual é o caminho de cura para interromper esse ciclo com mais consciência.
+          </p>
+        </article>
+
+        <article class="result-card">
+          <h3 class="card-title">O que é o mapa espiritual?</h3>
+          <p>
+            O mapa espiritual é uma leitura aprofundada que ajuda você a enxergar a origem invisível de padrões que continuam se repetindo.
+            Ele conecta a dimensão emocional da sua história, as marcas deixadas pelos vínculos familiares e os movimentos mais profundos que podem estar influenciando suas escolhas, relações, bloqueios e dores atuais.
+          </p>
+        </article>
+
+        <article class="result-card">
+          <p>
+            Muitas vezes, o que machuca hoje no relacionamento não começou no relacionamento.
+            Ele se conecta à sua história com o pai, à forma como você aprendeu a viver vínculo, às marcas emocionais que ficaram abertas e a padrões mais profundos que continuam pedindo resolução.
+          </p>
+        </article>
+
+        <article class="result-card">
+          <h3 class="card-title">Com o O Seu Lugar — Mapa da Relação Cármica Espiritual e Emocional, você acessa uma leitura aprofundada para:</h3>
+          <ul>
+            <li>revelar a raiz emocional, espiritual e cármica dos padrões que você vive</li>
+            <li>entender a ligação entre sua história com o pai e o relacionamento atual</li>
+            <li>identificar repetições que afetam amor, dinheiro, saúde e decisões de vida</li>
+            <li>enxergar com mais clareza o caminho de cura para parar de repetir dores, bloqueios, dívidas e relações que machucam</li>
+          </ul>
+        </article>
+
+        <article class="result-card">
+          <p>
+            Você não precisa continuar vivendo a mesma dor com nomes diferentes.
+            Quando a raiz aparece, o ciclo deixa de parecer confuso — e o caminho começa a ficar claro.
+          </p>
+        </article>
+      </div>
+
+      <div class="result-actions">
+        <a
+          class="btn upgrade-btn"
+          href="https://pay.kiwify.com.br/3a8uYOp"
+          target="_blank"
+          rel="noopener"
+        >
+          Quero meu mapa de cura
+        </a>
       </div>
 
       <div class="status" id="submitStatus"></div>
 
-     <div class="result-actions">
-  <a 
-    class="btn" 
-    href="https://wa.me/5549998110445?text=Quero%20entender%20melhor%20meu%20resultado"
-    target="_blank"
-  >
-    Quero entender melhor no WhatsApp
-  </a>
-</div>
+      <div class="result-actions">
+        <a
+          class="btn secondary"
+          href="https://wa.me/5549998110445?text=Quero%20entender%20melhor%20meu%20resultado"
+          target="_blank"
+          rel="noopener"
+        >
+          Quero entender melhor no WhatsApp
+        </a>
+      </div>
 
       <div class="debug" id="debugBox"></div>
     </section>
@@ -829,32 +976,28 @@
         subtitle: "O carinho que você não aprendeu a receber",
         origin: "Seu pai estava presente, mas emocionalmente distante. Ele provia, mas não abraçava. Não elogiava, não dizia “eu te amo”. Você cresceu aprendendo que amor é algo silencioso — que se demonstra com ações, nunca com palavras ou toque.",
         pattern: "No seu casamento, você tem dificuldade de receber carinho. Quando seu marido tenta ser afetuoso, você trava. Muda de assunto, faz piada, ou simplesmente não sabe o que fazer. Você engole o que sente porque aprendeu que mostrar emoção é fraqueza. E quando a dor acumula, você não explode — você se fecha.",
-        impact: "Seu marido sente que está amando uma parede. Ele tenta se aproximar, mas você recua. E quanto mais ele tenta, mais você se fecha. Não é que você não ame — é que ninguém te ensinou a receber amor.",
-        quote: "O primeiro passo é entender que você merece receber sem precisar provar nada."
+        impact: "Seu marido sente que está amando uma parede. Ele tenta se aproximar, mas você recua. E quanto mais ele tenta, mais você se fecha. Não é que você não ame — é que ninguém te ensinou a receber amor."
       },
       ausente: {
         title: "A Filha do Pai Ausente",
         subtitle: "A dor de esperar e aprender a não depender",
         origin: "Na infância, seu pai faltou — no corpo, na presença ou no vínculo emocional. Você cresceu com uma sensação silenciosa de abandono e aprendeu a não esperar demais de ninguém para não se decepcionar.",
         pattern: "No casamento, quando começa a se apegar de verdade, algo em você acende um alerta. Você esfria, se distancia ou começa a imaginar o pior. Antes que o outro te decepcione, você tenta sair na frente para se proteger.",
-        impact: "Isso cria distância emocional, insegurança e dificuldade de confiar no amor estável. Seu marido pode sentir que nunca consegue entrar totalmente no seu mundo, porque uma parte sua está sempre pronta para fugir.",
-        quote: "Amor seguro não precisa ser arrancado à força — ele pode ser recebido com calma, constância e confiança."
+        impact: "Isso cria distância emocional, insegurança e dificuldade de confiar no amor estável. Seu marido pode sentir que nunca consegue entrar totalmente no seu mundo, porque uma parte sua está sempre pronta para fugir."
       },
       condicional: {
         title: "A Filha do Pai Condicional",
         subtitle: "A crença de que você só merece amor quando agrada",
         origin: "Você aprendeu cedo que atenção vinha quando você acertava, ajudava, servia ou correspondia ao que esperavam de você. No fundo, ficou a ideia de que ser amada depende do que você entrega.",
         pattern: "No casamento, você tenta compensar tudo sendo boa demais, disponível demais, responsável demais. Cuida, organiza, resolve, se antecipa. E sem perceber, começa a medir seu valor pela utilidade dentro da relação.",
-        impact: "Isso gera sobrecarga, ressentimento e uma sensação constante de insuficiência. Seu marido pode até receber muito de você, mas talvez nunca consiga alcançar a ferida escondida por trás desse esforço: o medo de não ser amada só por existir.",
-        quote: "Você não precisa se tornar indispensável para merecer amor — sua presença já tem valor."
+        impact: "Isso gera sobrecarga, ressentimento e uma sensação constante de insuficiência. Seu marido pode até receber muito de você, mas talvez nunca consiga alcançar a ferida escondida por trás desse esforço: o medo de não ser amada só por existir."
       },
       explosivo: {
         title: "A Filha do Pai Explosivo",
         subtitle: "O amor que você vive em estado de alerta",
         origin: "Seu pai era imprevisível: uma hora estava bem, em outra assustava, cobrava ou explodia. Você cresceu tentando ler sinais, evitar conflitos e se preparar para o pior.",
         pattern: "No casamento, sua ansiedade relacional aparece rápido. Você testa, provoca, interpreta o silêncio como rejeição e fica hipervigilante. Mesmo em momentos bons, uma parte sua espera a queda.",
-        impact: "Isso desgasta a relação, porque o amor passa a ser vivido em tensão. Seu marido pode sentir que está sempre sendo colocado à prova, enquanto você se sente constantemente insegura, mesmo quando é amada.",
-        quote: "Nem todo vínculo termina em dor — é possível amar sem viver esperando a próxima ferida."
+        impact: "Isso desgasta a relação, porque o amor passa a ser vivido em tensão. Seu marido pode sentir que está sempre sendo colocado à prova, enquanto você se sente constantemente insegura, mesmo quando é amada."
       }
     };
 
@@ -866,9 +1009,8 @@
     const progressBar = document.getElementById("progressBar");
     const startBtn = document.getElementById("startBtn");
     const backBtn = document.getElementById("backBtn");
-    const restartBtn = document.getElementById("restartBtn");
-    const copyBtn = document.getElementById("copyBtn");
     const showResultBtn = document.getElementById("showResultBtn");
+    const countdownTimer = document.getElementById("countdownTimer");
 
     const leadName = document.getElementById("leadName");
     const leadWhatsapp = document.getElementById("leadWhatsapp");
@@ -882,13 +1024,14 @@
     const resultOrigin = document.getElementById("resultOrigin");
     const resultPattern = document.getElementById("resultPattern");
     const resultImpact = document.getElementById("resultImpact");
-    const resultQuote = document.getElementById("resultQuote");
     const submitStatus = document.getElementById("submitStatus");
     const debugBox = document.getElementById("debugBox");
 
     let currentQuestion = 0;
     let answers = [];
     let alreadySubmitted = false;
+    let countdownInterval = null;
+    const COUNTDOWN_STORAGE_KEY = "diagnostico_upgrade_deadline";
 
     function showScreen(screen){
       [introScreen, quizScreen, leadScreen, resultScreen].forEach(s => s.classList.remove("active"));
@@ -1068,6 +1211,42 @@
       }
     }
 
+    function formatRemainingTime(ms){
+      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+      const seconds = String(totalSeconds % 60).padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    }
+
+    function startCountdown(){
+      const now = Date.now();
+      let deadline = Number(localStorage.getItem(COUNTDOWN_STORAGE_KEY));
+
+      if (!deadline || deadline <= now) {
+        deadline = now + (15 * 60 * 1000);
+        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(deadline));
+      }
+
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
+
+      function updateCountdown(){
+        const remaining = deadline - Date.now();
+
+        if (remaining <= 0) {
+          countdownTimer.textContent = "00:00";
+          clearInterval(countdownInterval);
+          return;
+        }
+
+        countdownTimer.textContent = formatRemainingTime(remaining);
+      }
+
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
     function showResult(){
       const totals = getTotals();
       const winnerKey = getWinner(totals);
@@ -1078,7 +1257,6 @@
       resultOrigin.textContent = result.origin;
       resultPattern.textContent = result.pattern;
       resultImpact.textContent = result.impact;
-      resultQuote.textContent = result.quote;
 
       debugBox.innerHTML = `
         <strong>Debug:</strong><br>
@@ -1090,6 +1268,7 @@
 
       showScreen(resultScreen);
       updateProgress();
+      startCountdown();
       sendToGoogleForms(result, totals);
     }
 
@@ -1115,43 +1294,6 @@
     showResultBtn.addEventListener("click", () => {
       if (!validateLead()) return;
       showResult();
-    });
-
-    restartBtn.addEventListener("click", () => {
-      currentQuestion = 0;
-      answers = [];
-      alreadySubmitted = false;
-      submitStatus.textContent = "";
-      showScreen(introScreen);
-      updateProgress();
-    });
-
-    copyBtn.addEventListener("click", async () => {
-      const content = [
-        resultTitle.textContent,
-        resultSubtitle.textContent,
-        "",
-        "A Origem:",
-        resultOrigin.textContent,
-        "",
-        "O Padrão no Casamento:",
-        resultPattern.textContent,
-        "",
-        "O Impacto:",
-        resultImpact.textContent,
-        "",
-        resultQuote.textContent
-      ].join("\n");
-
-      try {
-        await navigator.clipboard.writeText(content);
-        copyBtn.textContent = "Resultado copiado";
-        setTimeout(() => {
-          copyBtn.textContent = "Copiar meu resultado";
-        }, 1800);
-      } catch (error) {
-        alert("Não foi possível copiar automaticamente.");
-      }
     });
 
     updateProgress();
