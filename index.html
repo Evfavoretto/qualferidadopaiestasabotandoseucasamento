@@ -22,23 +22,18 @@
 
   <style>
     :root{
-      --bg:#050713;
-      --bg-2:#090b1d;
-      --card:#0b0d22;
-      --card-2:rgba(11,13,34,.88);
       --gold:#d0ae7e;
       --gold-2:#b89263;
-      --gold-3:#ecd4ae;
+      --gold-soft:rgba(208,174,126,.16);
+      --gold-soft-2:rgba(208,174,126,.10);
       --text:#f5efe9;
-      --muted:#b8aa9d;
-      --muted-2:#8e8277;
-      --line:rgba(208,174,126,.16);
-      --line-2:rgba(208,174,126,.30);
-      --shadow:0 22px 60px rgba(0,0,0,.45);
-      --radius-xl:32px;
-      --radius-lg:26px;
-      --radius-md:20px;
-      --container:760px;
+      --muted:#d8cec4;
+      --muted-2:#b9ab9c;
+      --line:rgba(208,174,126,.24);
+      --line-soft:rgba(208,174,126,.14);
+      --shadow:0 20px 60px rgba(0,0,0,.22);
+      --container:820px;
+      --glass:rgba(255,255,255,.03);
     }
 
     *{
@@ -84,15 +79,16 @@
       pointer-events:none;
       background-image:radial-gradient(rgba(255,255,255,.10) .7px, transparent .7px);
       background-size:24px 24px;
-      opacity:.035;
+      opacity:.03;
       mix-blend-mode:screen;
     }
 
     .progress-shell{
       position:sticky;
       top:0;
-      z-index:40;
+      z-index:50;
       background:linear-gradient(180deg, rgba(4,18,10,.96), rgba(4,18,10,.78) 70%, rgba(4,18,10,0));
+      backdrop-filter:blur(6px);
     }
 
     .progress-track{
@@ -105,14 +101,14 @@
     .progress-bar{
       width:0%;
       height:100%;
-      background:linear-gradient(90deg, #5a9a6b, #9be2ae);
+      background:linear-gradient(90deg, #6db286, #d0ae7e);
       transition:width .35s ease;
     }
 
     .app{
       width:min(100%, var(--container));
       margin:0 auto;
-      padding:0 16px 38px;
+      padding:0 18px 44px;
       position:relative;
       z-index:2;
     }
@@ -121,7 +117,8 @@
       min-height:100vh;
       display:none;
       flex-direction:column;
-      padding:18px 0 28px;
+      padding:22px 0 34px;
+      animation:fadeIn .35s ease;
     }
 
     .screen.active{
@@ -131,7 +128,7 @@
     .intro-screen{
       justify-content:center;
       text-align:center;
-      padding-top:38px;
+      padding-top:42px;
       padding-bottom:44px;
     }
 
@@ -143,6 +140,7 @@
       font-size:13px;
       line-height:1.4;
       margin:0 0 18px;
+      font-weight:700;
     }
 
     .intro-title,
@@ -151,7 +149,8 @@
     .result-subtitle,
     .card-title,
     .quote-text,
-    .offer-headline{
+    .offer-headline,
+    .loading-title{
       font-family:"Cormorant Garamond", Georgia, serif;
       letter-spacing:-.02em;
       line-height:1;
@@ -167,9 +166,9 @@
     .question-title{
       font-size:clamp(2.2rem, 9vw, 4rem);
       font-weight:600;
-      line-height:1.1;
+      line-height:1.08;
       text-align:center;
-      max-width:700px;
+      max-width:720px;
       margin:0 auto 28px;
     }
 
@@ -184,7 +183,7 @@
       color:var(--gold);
       font-style:italic;
       line-height:1.08;
-      margin-bottom:16px;
+      margin-bottom:18px;
       font-weight:500;
     }
 
@@ -193,27 +192,27 @@
       font-style:italic;
     }
 
-    .intro-desc{
-      max-width:640px;
+    .intro-desc,
+    .lead-desc{
+      max-width:680px;
       margin:0 auto 24px;
       color:var(--muted);
-      font-size:clamp(1.02rem, 4.1vw, 1.38rem);
+      font-size:clamp(1.02rem, 4.1vw, 1.32rem);
       line-height:1.8;
     }
 
-    .lead-card,
-    .result-card{
-      background:var(--card-2);
-      border:1px solid var(--line);
+    .glass-block{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line-soft);
       box-shadow:var(--shadow);
-      backdrop-filter:blur(8px);
+      backdrop-filter:blur(12px);
+      border-radius:30px;
     }
 
     .lead-card{
-      width:min(100%, 560px);
+      width:min(100%, 580px);
       margin:0 auto 18px;
       padding:18px;
-      border-radius:28px;
       text-align:left;
     }
 
@@ -237,15 +236,15 @@
 
     .input{
       width:100%;
-      min-height:56px;
+      min-height:58px;
       border-radius:18px;
-      border:1px solid rgba(208,174,126,.16);
-      background:#090c1d;
+      border:1px solid rgba(208,174,126,.22);
+      background:rgba(9,12,29,.45);
       color:var(--text);
       padding:0 16px;
       font-size:1rem;
       outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease;
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
     }
 
     .input::placeholder{
@@ -253,13 +252,14 @@
     }
 
     .input:focus{
-      border-color:rgba(208,174,126,.42);
+      border-color:rgba(208,174,126,.5);
       box-shadow:0 0 0 3px rgba(208,174,126,.10);
+      background:rgba(9,12,29,.58);
     }
 
     .hint{
       margin:10px 0 0;
-      color:rgba(184,170,157,.74);
+      color:rgba(232,220,209,.76);
       font-size:.92rem;
       line-height:1.55;
     }
@@ -277,12 +277,12 @@
       border-radius:999px;
       background:var(--gold);
       color:#0a0d1b;
-      font-size:clamp(1.06rem, 3.8vw, 1.28rem);
+      font-size:clamp(1.04rem, 3.8vw, 1.22rem);
       font-weight:800;
       padding:18px 24px;
       cursor:pointer;
       box-shadow:0 14px 34px rgba(208,174,126,.22);
-      transition:transform .18s ease, filter .18s ease;
+      transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
       text-decoration:none;
       display:inline-flex;
       align-items:center;
@@ -293,12 +293,19 @@
     .btn:hover{
       transform:translateY(-1px);
       filter:brightness(1.02);
+      box-shadow:0 18px 40px rgba(208,174,126,.24);
     }
 
     .btn.secondary{
       background:transparent;
       color:var(--gold);
-      border:1px solid rgba(208,174,126,.24);
+      border:1px solid rgba(208,174,126,.36);
+      box-shadow:none;
+      backdrop-filter:blur(6px);
+    }
+
+    .btn.secondary:hover{
+      background:rgba(208,174,126,.08);
       box-shadow:none;
     }
 
@@ -318,7 +325,7 @@
 
     .intro-foot{
       margin-top:22px;
-      color:rgba(184,170,157,.72);
+      color:rgba(232,220,209,.72);
       font-size:clamp(1rem, 3.5vw, 1.14rem);
     }
 
@@ -328,11 +335,11 @@
       align-items:center;
       gap:12px;
       min-height:46px;
-      margin-bottom:22px;
+      margin-bottom:24px;
     }
 
     .back-btn{
-      border:1px solid rgba(208,174,126,.18);
+      border:1px solid rgba(208,174,126,.24);
       background:transparent;
       color:var(--muted);
       border-radius:999px;
@@ -340,6 +347,7 @@
       font-size:.95rem;
       font-weight:700;
       cursor:pointer;
+      backdrop-filter:blur(4px);
     }
 
     .step-count{
@@ -365,9 +373,9 @@
     .option{
       width:100%;
       min-height:98px;
-      background:rgba(10,12,30,.94);
-      color:var(--muted);
-      border:1px solid rgba(208,174,126,.16);
+      background:transparent;
+      color:var(--gold);
+      border:1px solid rgba(208,174,126,.32);
       border-radius:26px;
       padding:18px 16px;
       display:flex;
@@ -375,14 +383,15 @@
       gap:16px;
       text-align:left;
       cursor:pointer;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.01);
-      transition:transform .18s ease, border-color .18s ease, background .18s ease;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+      backdrop-filter:blur(6px);
     }
 
     .option:hover{
       transform:translateY(-1px);
-      border-color:rgba(208,174,126,.34);
-      background:rgba(12,14,34,.98);
+      border-color:var(--gold);
+      background:rgba(208,174,126,.08);
+      box-shadow:0 8px 24px rgba(0,0,0,.10);
     }
 
     .option-letter{
@@ -390,25 +399,26 @@
       height:46px;
       min-width:46px;
       border-radius:999px;
-      background:rgba(87,74,103,.22);
-      color:#aa9986;
+      background:rgba(208,174,126,.14);
+      color:var(--gold);
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:1rem;
       font-weight:800;
       margin-top:1px;
+      border:1px solid rgba(208,174,126,.18);
     }
 
     .option-text{
-      font-size:clamp(1.08rem, 4vw, 1.42rem);
+      font-size:clamp(1.08rem, 4vw, 1.36rem);
       line-height:1.55;
-      font-weight:400;
+      font-weight:500;
       padding-top:2px;
     }
 
     .result-screen{
-      padding-top:20px;
+      padding-top:24px;
     }
 
     .result-header{
@@ -416,15 +426,23 @@
       padding:12px 0 8px;
     }
 
-    .result-cards{
-      display:grid;
-      gap:18px;
-      margin:14px 0 20px;
+    .result-block{
+      margin:0 0 24px;
     }
 
-    .result-card{
-      border-radius:28px;
-      padding:22px 18px;
+    .result-section{
+      margin:0 0 22px;
+    }
+
+    .result-section p{
+      margin:0;
+      color:#f2e9e1;
+      font-size:clamp(1.06rem, 4vw, 1.3rem);
+      line-height:1.78;
+    }
+
+    .result-section p + p{
+      margin-top:14px;
     }
 
     .card-title{
@@ -434,36 +452,17 @@
       margin-bottom:10px;
     }
 
-    .result-card p{
-      margin:0;
-      color:#efe4d9;
-      font-size:clamp(1.06rem, 4vw, 1.36rem);
-      line-height:1.72;
-    }
-
-    .result-card ul{
-      margin:14px 0 0;
-      padding-left:20px;
-      color:#efe4d9;
-      font-size:clamp(1rem, 3.8vw, 1.2rem);
-      line-height:1.7;
-    }
-
-    .result-card li{
-      margin-bottom:10px;
-    }
-
     .quote-box{
       text-align:center;
-      padding:6px 8px 18px;
-      max-width:760px;
+      padding:10px 8px 24px;
+      max-width:780px;
       margin:0 auto;
     }
 
     .quote-text{
       color:var(--gold);
-      font-size:clamp(2rem, 6.6vw, 3.4rem);
-      line-height:1.18;
+      font-size:clamp(2rem, 6.6vw, 3.5rem);
+      line-height:1.16;
       font-style:italic;
     }
 
@@ -471,59 +470,113 @@
       font-size:clamp(2.2rem, 8vw, 3.6rem);
       font-weight:600;
       color:var(--text);
-      line-height:1.08;
-      margin-bottom:12px;
+      line-height:1.06;
+      margin-bottom:0;
+    }
+
+    .depo-shell{
+      margin-top:14px;
+      display:grid;
+      gap:16px;
+    }
+
+    .depo-shell img{
+      width:100%;
+      display:block;
+      border-radius:22px;
+      box-shadow:0 12px 32px rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.05);
+      background:#fff;
     }
 
     .authority-photo{
       width:100%;
-      max-width:420px;
-      border-radius:20px;
-      margin:0 auto 16px;
+      max-width:460px;
+      border-radius:24px;
+      margin:0 auto 18px;
       display:block;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      box-shadow:0 14px 38px rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.05);
     }
 
-    .depo-grid{
+    .cta-stack{
       display:grid;
       gap:14px;
-      margin-top:16px;
-    }
-
-    .depo-grid img{
-      width:100%;
-      display:block;
-      border-radius:18px;
-      border:1px solid rgba(208,174,126,.12);
-      box-shadow:0 8px 24px rgba(0,0,0,.18);
-      background:#fff;
+      max-width:560px;
+      margin:0 auto 12px;
     }
 
     .status{
       min-height:24px;
       text-align:center;
-      color:rgba(184,170,157,.76);
+      color:rgba(232,220,209,.76);
       font-size:.94rem;
       line-height:1.5;
-      margin-bottom:16px;
-    }
-
-    .result-actions{
-      display:grid;
-      gap:12px;
-      max-width:560px;
-      margin:0 auto 10px;
+      margin:6px 0 16px;
     }
 
     .debug{
       display:none;
       margin-top:18px;
       border:1px solid rgba(208,174,126,.14);
-      background:rgba(10,12,30,.72);
+      background:rgba(10,12,30,.35);
       border-radius:18px;
       padding:14px;
       font-size:.9rem;
       color:var(--muted);
+      line-height:1.7;
+    }
+
+    .loading-screen{
+      justify-content:center;
+      text-align:center;
+      padding-top:38px;
+      padding-bottom:44px;
+    }
+
+    .loading-card{
+      width:min(100%, 620px);
+      margin:0 auto;
+      padding:28px 22px;
+    }
+
+    .loading-title{
+      font-size:clamp(2.2rem, 8vw, 3.8rem);
+      color:var(--text);
+      margin-bottom:14px;
+      font-weight:600;
+    }
+
+    .loading-text{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(1rem, 3.8vw, 1.18rem);
+      line-height:1.8;
+    }
+
+    .loading-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:22px 0 0;
+    }
+
+    .loading-dots span{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:var(--gold);
+      opacity:.3;
+      animation:blink 1.2s infinite;
+    }
+
+    .loading-dots span:nth-child(2){ animation-delay:.2s; }
+    .loading-dots span:nth-child(3){ animation-delay:.4s; }
+
+    .pulse-note{
+      margin-top:18px;
+      color:rgba(232,220,209,.72);
+      font-size:.98rem;
       line-height:1.7;
     }
 
@@ -533,7 +586,7 @@
       }
 
       .screen{
-        padding:22px 0 34px;
+        padding:24px 0 36px;
       }
 
       .top-row{
@@ -561,17 +614,19 @@
       }
 
       .lead-card,
-      .result-card{
-        border-radius:30px;
+      .loading-card{
+        padding:24px;
       }
+    }
 
-      .lead-card{
-        padding:20px;
-      }
+    @keyframes fadeIn{
+      from{ opacity:0; transform:translateY(10px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
 
-      .result-card{
-        padding:24px 22px;
-      }
+    @keyframes blink{
+      0%, 100%{ opacity:.25; transform:scale(1); }
+      50%{ opacity:1; transform:scale(1.08); }
     }
   </style>
 </head>
@@ -621,11 +676,11 @@
         ver <span class="highlight">seu resultado</span>
       </h2>
 
-      <p class="intro-desc">
+      <p class="lead-desc">
         Falta só um passo para liberar seu diagnóstico completo.
       </p>
 
-      <div class="lead-card">
+      <div class="lead-card glass-block">
         <div class="field">
           <label class="label" for="leadName">Seu nome</label>
           <input class="input" id="leadName" type="text" placeholder="Digite seu nome" autocomplete="name" />
@@ -644,6 +699,22 @@
       <p class="intro-foot">Seu resultado aparece imediatamente após o envio.</p>
     </section>
 
+    <section class="screen loading-screen" id="loadingScreen">
+      <div class="loading-card glass-block">
+        <p class="eyebrow">Analisando seu padrão</p>
+        <h2 class="loading-title">Estamos cruzando suas respostas</h2>
+        <p class="loading-text">
+          Identificando a raiz emocional que mais influencia a forma como você vive vínculo, afeto e insegurança no casamento.
+        </p>
+        <div class="loading-dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <p class="pulse-note">
+          Isso leva só alguns segundos.
+        </p>
+      </div>
+    </section>
+
     <section class="screen result-screen" id="resultScreen">
       <div class="result-header">
         <p class="result-label">Seu resultado</p>
@@ -651,21 +722,21 @@
         <p class="result-subtitle" id="resultSubtitle"></p>
       </div>
 
-      <div class="result-cards">
-        <article class="result-card">
+      <div class="result-block">
+        <div class="result-section">
           <h3 class="card-title">A Origem</h3>
           <p id="resultOrigin"></p>
-        </article>
+        </div>
 
-        <article class="result-card">
+        <div class="result-section">
           <h3 class="card-title">O Padrão no Casamento</h3>
           <p id="resultPattern"></p>
-        </article>
+        </div>
 
-        <article class="result-card">
+        <div class="result-section">
           <h3 class="card-title">O Impacto</h3>
           <p id="resultImpact"></p>
-        </article>
+        </div>
       </div>
 
       <div class="quote-box">
@@ -674,30 +745,30 @@
         </p>
       </div>
 
-      <div class="result-cards">
-        <article class="result-card">
+      <div class="result-block">
+        <div class="result-section">
           <h3 class="offer-headline">
             O Mapa da Relação Cármica, Espiritual e Emocional é o primeiro passo para iniciar sua cura e quebrar esse padrão.
           </h3>
-        </article>
+        </div>
 
-        <article class="result-card">
+        <div class="result-section">
           <p>
             Esse não é só um mapa de leitura. É um mapa de cura e libertação.
           </p>
-          <p style="margin-top:12px;">
+          <p>
             Ele revela e cura a raiz emocional, espiritual e cármica dos padrões que fazem você repetir no amor as feridas vividas com o pai.
           </p>
-          <p style="margin-top:12px;">
+          <p>
             Com esse mapa, você entende a origem da dor, reconhece o que ainda está comandando suas relações e acessa um caminho de cura para se libertar de ciclos de sofrimento, insegurança, bloqueios e relações que machucam.
           </p>
-          <p style="margin-top:12px;">
+          <p>
             Pare de repetir no relacionamento atual dores que começaram com o pai.
           </p>
-        </article>
+        </div>
       </div>
 
-      <div class="result-actions">
+      <div class="cta-stack">
         <a
           class="btn secondary"
           href="https://wa.me/5549998110445?text=Quero%20meu%20mapa%20de%20cura"
@@ -708,23 +779,23 @@
         </a>
       </div>
 
-      <div class="result-cards">
-        <article class="result-card">
+      <div class="result-block">
+        <div class="result-section">
           <h3 class="card-title">Depoimentos</h3>
           <p>
             Relatos reais de pessoas que já passaram pelo processo e conseguiram quebrar padrões, ganhar clareza e transformar suas relações.
           </p>
 
-          <div class="depo-grid">
-            <img src="depo1.jpg" alt="Depoimento de cliente sobre o mapa de cura">
-            <img src="depo2.jpg" alt="Depoimento de cliente sobre o mapa de cura">
-            <img src="depo3.jpg" alt="Depoimento de cliente sobre o mapa de cura">
-            <img src="depo4.jpg" alt="Depoimento de cliente sobre o mapa de cura">
-            <img src="depo5.jpg" alt="Depoimento de cliente sobre o mapa de cura">
+          <div class="depo-shell">
+            <img src="depo1.jpg" alt="Depoimento 1">
+            <img src="depo2.jpg" alt="Depoimento 2">
+            <img src="depo3.jpg" alt="Depoimento 3">
+            <img src="depo4.jpg" alt="Depoimento 4">
+            <img src="depo5.jpg" alt="Depoimento 5">
           </div>
-        </article>
+        </div>
 
-        <article class="result-card" style="text-align:center;">
+        <div class="result-section" style="text-align:center;">
           <img
             src="casal.jpg"
             alt="Alinne de Pasinatto e Evandro Favoretto"
@@ -733,13 +804,13 @@
           <p>
             <strong>Alinne de Pasinatto e Evandro Favoretto</strong> são casados há 17 anos e atuam há 15 anos como mentores de casais, conduzindo homens e mulheres em jornadas de cura relacional, emocional e espiritual.
           </p>
-          <p style="margin-top:12px;">
+          <p>
             Ao longo dessa caminhada, já atenderam mais de <strong>10 mil casais</strong> em processos de cura e quebra de padrões.
           </p>
-        </article>
+        </div>
       </div>
 
-      <div class="result-actions">
+      <div class="cta-stack">
         <a
           class="btn upgrade-btn"
           href="https://pay.kiwify.com.br/3a8uYOp"
@@ -748,11 +819,7 @@
         >
           Quero meu mapa de cura
         </a>
-      </div>
 
-      <div class="status" id="submitStatus"></div>
-
-      <div class="result-actions">
         <a
           class="btn secondary"
           href="https://wa.me/5549998110445?text=Quero%20entender%20melhor%20meu%20resultado"
@@ -763,6 +830,7 @@
         </a>
       </div>
 
+      <div class="status" id="submitStatus"></div>
       <div class="debug" id="debugBox"></div>
     </section>
   </main>
@@ -992,6 +1060,7 @@
     const introScreen = document.getElementById("introScreen");
     const quizScreen = document.getElementById("quizScreen");
     const leadScreen = document.getElementById("leadScreen");
+    const loadingScreen = document.getElementById("loadingScreen");
     const resultScreen = document.getElementById("resultScreen");
 
     const progressBar = document.getElementById("progressBar");
@@ -1019,7 +1088,7 @@
     let alreadySubmitted = false;
 
     function showScreen(screen){
-      [introScreen, quizScreen, leadScreen, resultScreen].forEach(s => s.classList.remove("active"));
+      [introScreen, quizScreen, leadScreen, loadingScreen, resultScreen].forEach(s => s.classList.remove("active"));
       screen.classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1036,7 +1105,9 @@
         return;
       }
 
-      progressBar.style.width = "100%";
+      if (leadScreen.classList.contains("active") || loadingScreen.classList.contains("active") || resultScreen.classList.contains("active")) {
+        progressBar.style.width = "100%";
+      }
     }
 
     function normalizePhone(value){
@@ -1191,7 +1262,7 @@
       }
     }
 
-    function showResult(){
+    function renderResult(){
       const totals = getTotals();
       const winnerKey = getWinner(totals);
       const result = results[winnerKey];
@@ -1210,9 +1281,18 @@
         Explosivo: ${totals.explosivo}
       `;
 
-      showScreen(resultScreen);
-      updateProgress();
       sendToGoogleForms(result, totals);
+    }
+
+    function showResultFlow(){
+      renderResult();
+      showScreen(loadingScreen);
+      updateProgress();
+
+      setTimeout(() => {
+        showScreen(resultScreen);
+        updateProgress();
+      }, 1800);
     }
 
     startBtn.addEventListener("click", () => {
@@ -1245,7 +1325,7 @@
 
     showResultBtn.addEventListener("click", () => {
       if (!validateLead()) return;
-      showResult();
+      showResultFlow();
     });
 
     updateProgress();
