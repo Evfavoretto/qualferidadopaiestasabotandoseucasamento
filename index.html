@@ -1288,16 +1288,8 @@
         resultQuote.textContent
       ].join("\n");
 
-      try {
-        await navigator.clipboard.writeText(content);
-        copyBtn.textContent = "Resultado copiado";
-        setTimeout(() => {
-          copyBtn.textContent = "Copiar meu resultado";
-        }, 1800);
-      } catch (error) {
-        alert("Não foi possível copiar automaticamente.");
-      }
-    });
+      
+     
 
     updateProgress();
   </script>
