@@ -39,8 +39,6 @@
       --radius-lg:26px;
       --radius-md:20px;
       --container:760px;
-      --urgent:#d85b5b;
-      --urgent-bg:rgba(216,91,91,.12);
     }
 
     *{
@@ -152,9 +150,7 @@
     .result-title,
     .result-subtitle,
     .card-title,
-    .quote-text,
-    .offer-headline,
-    .countdown-time{
+    .quote-text{
       font-family:"Cormorant Garamond", Georgia, serif;
       letter-spacing:-.02em;
       line-height:1;
@@ -205,8 +201,7 @@
     }
 
     .lead-card,
-    .result-card,
-    .countdown-card{
+    .result-card{
       background:var(--card-2);
       border:1px solid var(--line);
       box-shadow:var(--shadow);
@@ -287,11 +282,6 @@
       cursor:pointer;
       box-shadow:0 14px 34px rgba(208,174,126,.22);
       transition:transform .18s ease, filter .18s ease;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
     }
 
     .btn:hover{
@@ -304,12 +294,6 @@
       color:var(--gold);
       border:1px solid rgba(208,174,126,.24);
       box-shadow:none;
-    }
-
-    .btn.upgrade-btn{
-      width:100%;
-      max-width:560px;
-      margin:0 auto;
     }
 
     .btn:focus-visible,
@@ -445,18 +429,6 @@
       line-height:1.72;
     }
 
-    .result-card ul{
-      margin:14px 0 0;
-      padding-left:20px;
-      color:#efe4d9;
-      font-size:clamp(1rem, 3.8vw, 1.2rem);
-      line-height:1.7;
-    }
-
-    .result-card li{
-      margin-bottom:10px;
-    }
-
     .quote-box{
       text-align:center;
       padding:6px 8px 18px;
@@ -469,56 +441,6 @@
       font-size:clamp(1.9rem, 6.4vw, 2.9rem);
       line-height:1.16;
       font-style:italic;
-    }
-
-    .countdown-card{
-      border-radius:28px;
-      padding:20px 18px;
-      text-align:center;
-      margin:10px 0 18px;
-      background:
-        linear-gradient(180deg, rgba(216,91,91,.12), rgba(11,13,34,.88)),
-        var(--card-2);
-      border:1px solid rgba(216,91,91,.22);
-    }
-
-    .countdown-label{
-      margin:0 0 10px;
-      color:#f4cfcf;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:.78rem;
-      font-weight:800;
-    }
-
-    .countdown-time{
-      font-size:clamp(2.2rem, 10vw, 4rem);
-      color:#fff3f3;
-      line-height:1;
-      margin-bottom:10px;
-      font-weight:700;
-    }
-
-    .countdown-note{
-      margin:0;
-      color:#efd7d7;
-      font-size:clamp(.98rem, 3.6vw, 1.08rem);
-      line-height:1.6;
-    }
-
-    .offer-headline{
-      font-size:clamp(2.2rem, 8vw, 3.6rem);
-      font-weight:600;
-      color:var(--text);
-      line-height:1.08;
-      margin-bottom:12px;
-    }
-
-    .offer-subheadline{
-      color:#efe4d9;
-      font-size:clamp(1.06rem, 4vw, 1.28rem);
-      line-height:1.74;
-      margin:0;
     }
 
     .status{
@@ -583,8 +505,7 @@
       }
 
       .lead-card,
-      .result-card,
-      .countdown-card{
+      .result-card{
         border-radius:30px;
       }
 
@@ -592,8 +513,7 @@
         padding:20px;
       }
 
-      .result-card,
-      .countdown-card{
+      .result-card{
         padding:24px 22px;
       }
     }
@@ -696,42 +616,17 @@
         <p class="quote-text" id="resultQuote"></p>
       </div>
 
-      
-        <article class="result-card">
-          <h3 class="card-title">Com  Mapa da Relação Cármica Espiritual e Emocional, você acessa uma leitura aprofundada para:</h3>
-          <ul>
-            <li>revelar a raiz emocional, espiritual e cármica dos padrões que você vive</li>
-            <li>entender a ligação entre sua história com o pai e o relacionamento atual</li>
-            <li>identificar repetições que afetam amor, dinheiro, saúde e decisões de vida</li>
-            <li>enxergar com mais clareza o caminho de cura para parar de repetir dores, bloqueios, dívidas e relações que machucam</li>
-          </ul>
-        </article>
-
-        <article class="result-card">
-          <p>
-            Você não precisa continuar vivendo a mesma dor com nomes diferentes.
-            Quando a raiz aparece, o ciclo deixa de parecer confuso e o caminho começa a ficar claro.
-          </p>
-        </article>
-      </div>
-
-      <div class="result-actions">
-        <a
-          class="btn upgrade-btn"
-          href="https://pay.kiwify.com.br/3a8uYOp"
-          target="_blank"
-          rel="noopener"
-        >
-          Quero meu mapa de cura
-        </a>
-      </div>
-
       <div class="status" id="submitStatus"></div>
 
-      <div class="result-actions">
-        <button class="btn" id="restartBtn" type="button">Refazer Diagnóstico</button>
-        <button class="btn secondary" id="copyBtn" type="button">Copiar meu resultado</button>
-      </div>
+     <div class="result-actions">
+  <a 
+    class="btn" 
+    href="https://wa.me/5549998110445?text=Quero%20entender%20melhor%20meu%20resultado"
+    target="_blank"
+  >
+    Quero entender melhor no WhatsApp
+  </a>
+</div>
 
       <div class="debug" id="debugBox"></div>
     </section>
@@ -974,7 +869,6 @@
     const restartBtn = document.getElementById("restartBtn");
     const copyBtn = document.getElementById("copyBtn");
     const showResultBtn = document.getElementById("showResultBtn");
-    const countdownTimer = document.getElementById("countdownTimer");
 
     const leadName = document.getElementById("leadName");
     const leadWhatsapp = document.getElementById("leadWhatsapp");
@@ -995,8 +889,6 @@
     let currentQuestion = 0;
     let answers = [];
     let alreadySubmitted = false;
-    let countdownInterval = null;
-    const COUNTDOWN_STORAGE_KEY = "diagnostico_upgrade_deadline";
 
     function showScreen(screen){
       [introScreen, quizScreen, leadScreen, resultScreen].forEach(s => s.classList.remove("active"));
@@ -1176,42 +1068,6 @@
       }
     }
 
-    function formatRemainingTime(ms){
-      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-      const seconds = String(totalSeconds % 60).padStart(2, "0");
-      return `${minutes}:${seconds}`;
-    }
-
-    function startCountdown(){
-      const now = Date.now();
-      let deadline = Number(localStorage.getItem(COUNTDOWN_STORAGE_KEY));
-
-      if (!deadline || deadline <= now) {
-        deadline = now + (15 * 60 * 1000);
-        localStorage.setItem(COUNTDOWN_STORAGE_KEY, String(deadline));
-      }
-
-      if (countdownInterval) {
-        clearInterval(countdownInterval);
-      }
-
-      function updateCountdown(){
-        const remaining = deadline - Date.now();
-
-        if (remaining <= 0) {
-          countdownTimer.textContent = "00:00";
-          clearInterval(countdownInterval);
-          return;
-        }
-
-        countdownTimer.textContent = formatRemainingTime(remaining);
-      }
-
-      updateCountdown();
-      countdownInterval = setInterval(updateCountdown, 1000);
-    }
-
     function showResult(){
       const totals = getTotals();
       const winnerKey = getWinner(totals);
@@ -1234,7 +1090,6 @@
 
       showScreen(resultScreen);
       updateProgress();
-      startCountdown();
       sendToGoogleForms(result, totals);
     }
 
@@ -1288,16 +1143,16 @@
         resultQuote.textContent
       ].join("\n");
 
-      
-     <div class="result-actions">
-  <a 
-    class="btn" 
-    href="https://wa.me/5549998110445?text=Quero%20entender%20melhor%20meu%20resultado"
-    target="_blank"
-  >
-    Quero entender melhor no WhatsApp
-  </a>
-</div>
+      try {
+        await navigator.clipboard.writeText(content);
+        copyBtn.textContent = "Resultado copiado";
+        setTimeout(() => {
+          copyBtn.textContent = "Copiar meu resultado";
+        }, 1800);
+      } catch (error) {
+        alert("Não foi possível copiar automaticamente.");
+      }
+    });
 
     updateProgress();
   </script>
